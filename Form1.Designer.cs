@@ -1,6 +1,6 @@
 ﻿namespace Diyers_System
 {
-    partial class Form1
+    partial class btn_todas
     {
         /// <summary>
         ///  Required designer variable.
@@ -46,6 +46,7 @@
             label2 = new Label();
             linkLabel1 = new LinkLabel();
             linkLabel2 = new LinkLabel();
+            btnTodas = new Button();
             SuspendLayout();
             // 
             // lbl_Dolar
@@ -74,6 +75,7 @@
             btn_Editar.Name = "btn_Editar";
             btn_Editar.Size = new Size(53, 29);
             btn_Editar.TabIndex = 2;
+            btn_Editar.TabStop = false;
             btn_Editar.Text = "Editar";
             btn_Editar.UseVisualStyleBackColor = true;
             btn_Editar.Click += button1_Click;
@@ -94,8 +96,10 @@
             btn_Ferreteria.Name = "btn_Ferreteria";
             btn_Ferreteria.Size = new Size(63, 66);
             btn_Ferreteria.TabIndex = 4;
+            btn_Ferreteria.TabStop = false;
             btn_Ferreteria.Text = "Ferreteria";
             btn_Ferreteria.UseVisualStyleBackColor = true;
+            btn_Ferreteria.Click += btn_Ferreteria_Click;
             // 
             // btnPintura
             // 
@@ -103,8 +107,10 @@
             btnPintura.Name = "btnPintura";
             btnPintura.Size = new Size(64, 66);
             btnPintura.TabIndex = 5;
+            btnPintura.TabStop = false;
             btnPintura.Text = "Pintura";
             btnPintura.UseVisualStyleBackColor = true;
+            btnPintura.Click += btnPintura_Click;
             // 
             // btn_Maderera
             // 
@@ -112,8 +118,10 @@
             btn_Maderera.Name = "btn_Maderera";
             btn_Maderera.Size = new Size(57, 66);
             btn_Maderera.TabIndex = 6;
+            btn_Maderera.TabStop = false;
             btn_Maderera.Text = "Maderera";
             btn_Maderera.UseVisualStyleBackColor = true;
+            btn_Maderera.Click += btn_Maderera_Click;
             // 
             // btn_Construccion
             // 
@@ -121,8 +129,10 @@
             btn_Construccion.Name = "btn_Construccion";
             btn_Construccion.Size = new Size(59, 66);
             btn_Construccion.TabIndex = 8;
+            btn_Construccion.TabStop = false;
             btn_Construccion.Text = "Construccion";
             btn_Construccion.UseVisualStyleBackColor = true;
+            btn_Construccion.Click += btn_Construccion_Click;
             // 
             // btn_Instalaciones
             // 
@@ -130,8 +140,10 @@
             btn_Instalaciones.Name = "btn_Instalaciones";
             btn_Instalaciones.Size = new Size(57, 66);
             btn_Instalaciones.TabIndex = 7;
+            btn_Instalaciones.TabStop = false;
             btn_Instalaciones.Text = "Instalaciones";
             btn_Instalaciones.UseVisualStyleBackColor = true;
+            btn_Instalaciones.Click += btn_Instalaciones_Click;
             // 
             // btn_agregarCategoria
             // 
@@ -140,6 +152,7 @@
             btn_agregarCategoria.Name = "btn_agregarCategoria";
             btn_agregarCategoria.Size = new Size(59, 66);
             btn_agregarCategoria.TabIndex = 9;
+            btn_agregarCategoria.TabStop = false;
             btn_agregarCategoria.Text = "+";
             btn_agregarCategoria.UseVisualStyleBackColor = true;
             // 
@@ -149,17 +162,19 @@
             button6.Name = "button6";
             button6.Size = new Size(188, 29);
             button6.TabIndex = 10;
+            button6.TabStop = false;
             button6.Text = "Exportar Datos";
             button6.UseVisualStyleBackColor = true;
             // 
             // txt_Busqueda
             // 
-            txt_Busqueda.Enabled = false;
             txt_Busqueda.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txt_Busqueda.Location = new Point(72, 295);
             txt_Busqueda.Name = "txt_Busqueda";
             txt_Busqueda.Size = new Size(349, 29);
             txt_Busqueda.TabIndex = 11;
+            txt_Busqueda.TextChanged += txt_Busqueda_TextChanged;
+            txt_Busqueda.KeyDown += txt_Busqueda_KeyDown;
             // 
             // button7
             // 
@@ -167,6 +182,7 @@
             button7.Name = "button7";
             button7.Size = new Size(53, 29);
             button7.TabIndex = 12;
+            button7.TabStop = false;
             button7.Text = "Buscar";
             button7.UseVisualStyleBackColor = true;
             // 
@@ -182,6 +198,7 @@
             listView1.View = View.Tile;
             listView1.DoubleClick += listView1_DoubleClick;
             listView1.KeyDown += listView1_KeyDown;
+            listView1.MouseClick += listView1_MouseClick;
             // 
             // label1
             // 
@@ -210,7 +227,6 @@
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(56, 15);
             linkLabel1.TabIndex = 16;
-            linkLabel1.TabStop = true;
             linkLabel1.Text = "Siguiente";
             // 
             // linkLabel2
@@ -220,14 +236,25 @@
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(50, 15);
             linkLabel2.TabIndex = 17;
-            linkLabel2.TabStop = true;
             linkLabel2.Text = "Anterior";
             // 
-            // Form1
+            // btnTodas
+            // 
+            btnTodas.Location = new Point(255, 140);
+            btnTodas.Name = "btnTodas";
+            btnTodas.Size = new Size(98, 40);
+            btnTodas.TabIndex = 18;
+            btnTodas.TabStop = false;
+            btnTodas.Text = "TOODAS";
+            btnTodas.UseVisualStyleBackColor = true;
+            btnTodas.Click += button1_Click_1;
+            // 
+            // btn_todas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(583, 749);
+            Controls.Add(btnTodas);
             Controls.Add(linkLabel2);
             Controls.Add(linkLabel1);
             Controls.Add(label2);
@@ -246,7 +273,7 @@
             Controls.Add(btn_Editar);
             Controls.Add(txt_Dolar);
             Controls.Add(lbl_Dolar);
-            Name = "Form1";
+            Name = "btn_todas";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);
@@ -273,5 +300,6 @@
         private Label label2;
         private LinkLabel linkLabel1;
         private LinkLabel linkLabel2;
+        private Button btnTodas;
     }
 }
