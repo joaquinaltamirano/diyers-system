@@ -275,48 +275,6 @@
             AbrirDetalle();
         }
 
-        private void btn_Ferreteria_Click(object sender, EventArgs e)
-        {
-            categoriaSeleccionada = "Ferreteria";
-            FiltrarTodo();
-            txt_Busqueda.Focus();
-        }
-
-        private void btnPintura_Click(object sender, EventArgs e)
-        {
-            categoriaSeleccionada = "Pintura";
-            FiltrarTodo();
-            txt_Busqueda.Focus();
-        }
-
-        private void btn_Maderera_Click(object sender, EventArgs e)
-        {
-            categoriaSeleccionada = "Maderera";
-            FiltrarTodo();
-            txt_Busqueda.Focus();
-        }
-
-        private void btn_Instalaciones_Click(object sender, EventArgs e)
-        {
-            categoriaSeleccionada = "Instalaciones";
-            FiltrarTodo();
-            txt_Busqueda.Focus();
-        }
-
-        private void btn_Construccion_Click(object sender, EventArgs e)
-        {
-            categoriaSeleccionada = "Construccion";
-            FiltrarTodo();
-            txt_Busqueda.Focus();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            categoriaSeleccionada = null;
-            FiltrarTodo();
-            txt_Busqueda.Focus();
-        }
-
         private void txt_Busqueda_TextChanged(object sender, EventArgs e)
         {
             FiltrarTodo();
@@ -342,6 +300,48 @@
         private void button1_Click_2(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btn_Ferreteria_Click(object sender, EventArgs e)
+        {
+            categoriaSeleccionada = "Ferreteria";
+            FiltrarTodo();
+            txt_Busqueda.Focus();
+        }
+
+        private void btn_Pintura_Click(object sender, EventArgs e)
+        {
+            categoriaSeleccionada = "Pintura";
+            FiltrarTodo();
+            txt_Busqueda.Focus();
+        }
+
+        private void btn_Maderas_Click(object sender, EventArgs e)
+        {
+            categoriaSeleccionada = "Maderera";
+            FiltrarTodo();
+            txt_Busqueda.Focus();
+        }
+
+        private void btn_Instalaciones_Click(object sender, EventArgs e)
+        {
+            categoriaSeleccionada = "Instalaciones";
+            FiltrarTodo();
+            txt_Busqueda.Focus();
+        }
+
+        private void btnConstruccion_Click(object sender, EventArgs e)
+        {
+            categoriaSeleccionada = "Construccion";
+            FiltrarTodo();
+            txt_Busqueda.Focus();
+        }
+
+        private void btn_Todas_Click(object sender, EventArgs e)
+        {
+            categoriaSeleccionada = null;
+            FiltrarTodo();
+            txt_Busqueda.Focus();
         }
     }
 }
