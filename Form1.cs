@@ -160,6 +160,7 @@
 
             listView1.Columns.Add("", 250);
             listView1.Columns.Add("", 50);
+            listView1.HeaderStyle = ColumnHeaderStyle.None;
 
             GenerarDataMock();
             GenerarFamilias();
