@@ -6,5 +6,10 @@ namespace Diyers_System
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txt_Dolar.Enabled = true;
+        }
     }
 }
