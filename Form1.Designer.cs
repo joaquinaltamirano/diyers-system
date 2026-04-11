@@ -1,6 +1,6 @@
 ﻿namespace Diyers_System
 {
-    partial class btn_todas
+    partial class form1
     {
         /// <summary>
         ///  Required designer variable.
@@ -168,6 +168,7 @@
             // 
             // txt_Busqueda
             // 
+            txt_Busqueda.CharacterCasing = CharacterCasing.Upper;
             txt_Busqueda.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txt_Busqueda.Location = new Point(72, 295);
             txt_Busqueda.Name = "txt_Busqueda";
@@ -227,6 +228,7 @@
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(56, 15);
             linkLabel1.TabIndex = 16;
+            linkLabel1.TabStop = true;
             linkLabel1.Text = "Siguiente";
             // 
             // linkLabel2
@@ -236,20 +238,21 @@
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(50, 15);
             linkLabel2.TabIndex = 17;
+            linkLabel2.TabStop = true;
             linkLabel2.Text = "Anterior";
             // 
             // btnTodas
             // 
-            btnTodas.Location = new Point(255, 140);
+            btnTodas.Location = new Point(296, 151);
             btnTodas.Name = "btnTodas";
-            btnTodas.Size = new Size(98, 40);
+            btnTodas.Size = new Size(125, 29);
             btnTodas.TabIndex = 18;
             btnTodas.TabStop = false;
             btnTodas.Text = "TOODAS";
             btnTodas.UseVisualStyleBackColor = true;
             btnTodas.Click += button1_Click_1;
             // 
-            // btn_todas
+            // form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -273,7 +276,7 @@
             Controls.Add(btn_Editar);
             Controls.Add(txt_Dolar);
             Controls.Add(lbl_Dolar);
-            Name = "btn_todas";
+            Name = "form1";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);

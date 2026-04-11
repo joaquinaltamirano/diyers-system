@@ -1,6 +1,6 @@
 ﻿namespace Diyers_System
 {
-    public partial class btn_todas : Form
+    public partial class form1 : Form
     {
         List<Producto> productosRaw = new List<Producto>();
         List<ProductoFamilia> familias = new List<ProductoFamilia>();
@@ -16,37 +16,135 @@
                     Nombre = "AEROSOL",
                     Hijos = new List<Nodo>
             {
-                new Nodo
+                CrearColor("ROJO"),
+                CrearColor("AZUL"),
+                CrearColor("VERDE")
+            }
+                };
+            }
+
+            if (familia == "TORNILLO")
+            {
+                return new Nodo
                 {
-                    Nombre = "ROJO",
+                    Nombre = "TORNILLO",
                     Hijos = new List<Nodo>
-                    {
-                        new Nodo
-                        {
-                            Nombre = "KUWAIT",
-                            Hijos = new List<Nodo>
-                            {
-                                new Nodo
-                                {
-                                    Nombre = "80CC",
-                                    EsFinal = true,
-                                    ProductoFinal = new Producto
-                                    {
-                                        NombreCompleto = "AEROSOL KUWAIT ROJO 80CC"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            {
+                CrearTipoTornillo("PHILIPS"),
+                CrearTipoTornillo("PLANO"),
+                CrearTipoTornillo("ALLEN")
+            }
+                };
+            }
+
+            if (familia == "CAÑO")
+            {
+                return new Nodo
+                {
+                    Nombre = "CAÑO",
+                    Hijos = new List<Nodo>
+            {
+                CrearMedidaCaño("20x20"),
+                CrearMedidaCaño("40x40"),
+                CrearMedidaCaño("60x40")
+            }
+                };
+            }
+
+            if (familia == "TABLA")
+            {
+                return new Nodo
+                {
+                    Nombre = "TABLA",
+                    Hijos = new List<Nodo>
+            {
+                CrearMadera("PINO"),
+                CrearMadera("EUCALIPTO"),
+                CrearMadera("CEDRO")
             }
                 };
             }
 
             return new Nodo { Nombre = "VACIO" };
         }
+        Nodo CrearColor(string color)
+        {
+            return new Nodo
+            {
+                Nombre = color,
+                Hijos = new List<Nodo>
+        {
+            CrearMarca(color, "KUWAIT"),
+            CrearMarca(color, "SINTEPLAST")
+        }
+            };
+        }
 
-        public btn_todas()
+        Nodo CrearMarca(string color, string marca)
+        {
+            return new Nodo
+            {
+                Nombre = marca,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"AEROSOL {marca} {color} 40CC"),
+            CrearProductoFinal($"AEROSOL {marca} {color} 80CC")
+        }
+            };
+        }
+
+        Nodo CrearTipoTornillo(string tipo)
+        {
+            return new Nodo
+            {
+                Nombre = tipo,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"TORNILLO {tipo} 8MM"),
+            CrearProductoFinal($"TORNILLO {tipo} 10MM")
+        }
+            };
+        }
+
+        Nodo CrearMedidaCaño(string medida)
+        {
+            return new Nodo
+            {
+                Nombre = medida,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"CAÑO ESTRUCTURAL {medida}"),
+        }
+            };
+        }
+
+        Nodo CrearMadera(string tipo)
+        {
+            return new Nodo
+            {
+                Nombre = tipo,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"TABLA {tipo} 2M"),
+            CrearProductoFinal($"TABLA {tipo} 3M")
+        }
+            };
+        }
+
+        Nodo CrearProductoFinal(string nombre)
+        {
+            return new Nodo
+            {
+                Nombre = nombre,
+                EsFinal = true,
+                ProductoFinal = new Producto
+                {
+                    NombreCompleto = nombre
+                }
+            };
+        }
+
+        public form1()
         {
             InitializeComponent();
         }
@@ -66,8 +164,12 @@
             GenerarFamilias();
             FiltrarTodo();
 
-            MessageBox.Show(listView1.Items.Count.ToString());
+            var auto = new AutoCompleteStringCollection();
+            auto.AddRange(familias.Select(f => f.Nombre).Distinct().ToArray());
 
+            txt_Busqueda.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txt_Busqueda.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txt_Busqueda.AutoCompleteCustomSource = auto;
         }
 
         void CargarListView(List<ProductoFamilia> lista)

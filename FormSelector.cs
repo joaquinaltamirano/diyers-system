@@ -18,6 +18,7 @@ namespace Diyers_System
         public FormSelector(Nodo nodo)
         {
             InitializeComponent();
+            this.ActiveControl = null;
 
             this.KeyPreview = true; 
             CargarNodo(nodo);
