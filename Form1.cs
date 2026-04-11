@@ -157,19 +157,13 @@
         private void Form1_Load(object sender, EventArgs e)
         {
             listView1.View = View.Details;
-            listView1.Columns.Add("Producto", 250);
+
+            listView1.Columns.Add("", 250);
             listView1.Columns.Add("", 50);
 
             GenerarDataMock();
             GenerarFamilias();
             FiltrarTodo();
-
-            var auto = new AutoCompleteStringCollection();
-            auto.AddRange(familias.Select(f => f.Nombre).Distinct().ToArray());
-
-            txt_Busqueda.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txt_Busqueda.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txt_Busqueda.AutoCompleteCustomSource = auto;
         }
 
         void CargarListView(List<ProductoFamilia> lista)
@@ -343,6 +337,11 @@
         private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
             txt_Busqueda.Focus();
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
