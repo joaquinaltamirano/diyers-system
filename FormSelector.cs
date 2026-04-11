@@ -15,40 +15,49 @@ namespace Diyers_System
         Nodo nodoActual;
         Stack<Nodo> historial = new Stack<Nodo>();
 
+        public FormSelector(Nodo nodo)
+        {
+            InitializeComponent();
+
+            this.KeyPreview = true; 
+            CargarNodo(nodo);
+        }
+
         void CargarNodo(Nodo nodo)
         {
             nodoActual = nodo;
-            panel1.Controls.Clear();
+            flowLayoutPanel1.Controls.Clear();
+
+            int i = 1;
 
             foreach (var hijo in nodo.Hijos)
             {
                 Button btn = new Button();
-                btn.Text = hijo.Nombre;
+                btn.Text = $"{i}. {hijo.Nombre}";
                 btn.Width = 200;
-                btn.Height = 40;
-                btn.Top = panel1.Controls.Count * 50;
+                btn.Height = 50;
+                btn.Tag = hijo;
+
+                btn.TabStop = false; // 🔥 evita foco
 
                 btn.Click += (s, e) =>
                 {
-                    if (hijo.EsFinal)
+                    var seleccionado = (Nodo)btn.Tag;
+
+                    if (seleccionado.EsFinal)
                     {
-                        MessageBox.Show(hijo.ProductoFinal.NombreCompleto);
+                        MessageBox.Show(seleccionado.ProductoFinal.NombreCompleto);
                     }
                     else
                     {
                         historial.Push(nodoActual);
-                        CargarNodo(hijo);
+                        CargarNodo(seleccionado);
                     }
                 };
 
-                panel1.Controls.Add(btn);
+                flowLayoutPanel1.Controls.Add(btn);
+                i++;
             }
-        }
-
-        public FormSelector(Nodo nodo)
-        {
-            InitializeComponent();
-            CargarNodo(nodo);
         }
 
         private void btn_Volver_Click(object sender, EventArgs e)
@@ -62,6 +71,32 @@ namespace Diyers_System
             {
                 this.Close();
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // NÚMEROS (1–9)
+            if (keyData >= Keys.D1 && keyData <= Keys.D9)
+            {
+                int index = keyData - Keys.D1;
+
+                if (index < flowLayoutPanel1.Controls.Count)
+                {
+                    var btn = (Button)flowLayoutPanel1.Controls[index];
+                    btn.PerformClick();
+                }
+
+                return true;
+            }
+
+            // ESC = volver
+            if (keyData == Keys.Escape)
+            {
+                btn_Volver_Click(null, null);
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

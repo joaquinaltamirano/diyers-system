@@ -28,16 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
             btn_Volver = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(54, 55);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(406, 201);
-            panel1.TabIndex = 0;
             // 
             // btn_Volver
             // 
@@ -49,21 +42,27 @@
             btn_Volver.UseVisualStyleBackColor = true;
             btn_Volver.Click += btn_Volver_Click;
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(57, 69);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(382, 111);
+            flowLayoutPanel1.TabIndex = 2;
+            // 
             // FormSelector
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(535, 327);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(btn_Volver);
-            Controls.Add(panel1);
             Name = "FormSelector";
             Text = "FormSelector";
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel panel1;
         private Button btn_Volver;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
