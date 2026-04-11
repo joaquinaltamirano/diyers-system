@@ -36,8 +36,6 @@
             listView1 = new ListView();
             label1 = new Label();
             label2 = new Label();
-            linkLabel1 = new LinkLabel();
-            linkLabel2 = new LinkLabel();
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
@@ -63,15 +61,15 @@
             panel10 = new Panel();
             panel11 = new Panel();
             panel12 = new Panel();
+            label5 = new Label();
             panel13 = new Panel();
             panel14 = new Panel();
+            label6 = new Label();
             panel15 = new Panel();
             panel16 = new Panel();
+            label7 = new Label();
             panel17 = new Panel();
             panel18 = new Panel();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
             label8 = new Label();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
@@ -174,26 +172,6 @@
             label2.Size = new Size(62, 20);
             label2.TabIndex = 15;
             label2.Text = "Detalle";
-            // 
-            // linkLabel1
-            // 
-            linkLabel1.AutoSize = true;
-            linkLabel1.Location = new Point(358, 698);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(56, 15);
-            linkLabel1.TabIndex = 16;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Siguiente";
-            // 
-            // linkLabel2
-            // 
-            linkLabel2.AutoSize = true;
-            linkLabel2.Location = new Point(74, 699);
-            linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new Size(50, 15);
-            linkLabel2.TabIndex = 17;
-            linkLabel2.TabStop = true;
-            linkLabel2.Text = "Anterior";
             // 
             // panel1
             // 
@@ -524,6 +502,16 @@
             panel12.Size = new Size(76, 15);
             panel12.TabIndex = 43;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = SystemColors.ControlDarkDark;
+            label5.Location = new Point(1, -1);
+            label5.Name = "label5";
+            label5.Size = new Size(75, 15);
+            label5.TabIndex = 43;
+            label5.Text = "Instalaciones";
+            // 
             // panel13
             // 
             panel13.Controls.Add(panel14);
@@ -540,6 +528,16 @@
             panel14.Name = "panel14";
             panel14.Size = new Size(76, 15);
             panel14.TabIndex = 43;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = SystemColors.ControlDarkDark;
+            label6.Location = new Point(10, -1);
+            label6.Name = "label6";
+            label6.Size = new Size(57, 15);
+            label6.TabIndex = 42;
+            label6.Text = "Maderera";
             // 
             // panel15
             // 
@@ -558,6 +556,16 @@
             panel16.Size = new Size(76, 15);
             panel16.TabIndex = 43;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = SystemColors.ControlDarkDark;
+            label7.Location = new Point(0, -1);
+            label7.Name = "label7";
+            label7.Size = new Size(78, 15);
+            label7.TabIndex = 44;
+            label7.Text = "Construccion";
+            // 
             // panel17
             // 
             panel17.Controls.Add(panel18);
@@ -574,36 +582,6 @@
             panel18.Name = "panel18";
             panel18.Size = new Size(76, 15);
             panel18.TabIndex = 43;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.ForeColor = SystemColors.ControlDarkDark;
-            label5.Location = new Point(1, -1);
-            label5.Name = "label5";
-            label5.Size = new Size(75, 15);
-            label5.TabIndex = 43;
-            label5.Text = "Instalaciones";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.ForeColor = SystemColors.ControlDarkDark;
-            label6.Location = new Point(10, -1);
-            label6.Name = "label6";
-            label6.Size = new Size(57, 15);
-            label6.TabIndex = 42;
-            label6.Text = "Maderera";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.ForeColor = SystemColors.ControlDarkDark;
-            label7.Location = new Point(0, -1);
-            label7.Name = "label7";
-            label7.Size = new Size(78, 15);
-            label7.TabIndex = 44;
-            label7.Text = "Construccion";
             // 
             // label8
             // 
@@ -638,8 +616,6 @@
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(linkLabel2);
-            Controls.Add(linkLabel1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(listView1);
@@ -686,8 +662,6 @@
         private ListView listView1;
         private Label label1;
         private Label label2;
-        private LinkLabel linkLabel1;
-        private LinkLabel linkLabel2;
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
