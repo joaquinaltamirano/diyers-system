@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Diyers_System
 {
-    internal class Producto
+    public class Producto
     {
             public string NombreCompleto { get; set; }
             public string Categoria { get; set; }

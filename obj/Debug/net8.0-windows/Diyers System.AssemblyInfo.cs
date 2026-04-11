@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Diyers System")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62b24d54fcf9ff55cf1fb023c5aad0d1b80d30ff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d6e7e2e2632411ae41834fa70da67b50faf122f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Diyers System")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Diyers System")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

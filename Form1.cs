@@ -6,6 +6,46 @@
         List<ProductoFamilia> familias = new List<ProductoFamilia>();
 
         string categoriaSeleccionada = null;
+
+        Nodo GenerarArbolMock(string familia)
+        {
+            if (familia == "AEROSOL")
+            {
+                return new Nodo
+                {
+                    Nombre = "AEROSOL",
+                    Hijos = new List<Nodo>
+            {
+                new Nodo
+                {
+                    Nombre = "ROJO",
+                    Hijos = new List<Nodo>
+                    {
+                        new Nodo
+                        {
+                            Nombre = "KUWAIT",
+                            Hijos = new List<Nodo>
+                            {
+                                new Nodo
+                                {
+                                    Nombre = "80CC",
+                                    EsFinal = true,
+                                    ProductoFinal = new Producto
+                                    {
+                                        NombreCompleto = "AEROSOL KUWAIT ROJO 80CC"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+                };
+            }
+
+            return new Nodo { Nombre = "VACIO" };
+        }
+
         public btn_todas()
         {
             InitializeComponent();
@@ -50,15 +90,12 @@
 
             var familia = (ProductoFamilia)listView1.SelectedItems[0].Tag;
 
-            if (familia.Nombre == "AEROSOL")
-            {
-                MessageBox.Show("ROJO\nAZUL\nVERDE");
-            }
-            else if (familia.Nombre == "TORNILLO")
-            {
-                MessageBox.Show("PHILIPS\nPLANO");
-            }
+            Nodo raiz = GenerarArbolMock(familia.Nombre);
+
+            FormSelector fs = new FormSelector(raiz);
+            fs.ShowDialog();
         }
+
         void GenerarFamilias()
         {
             familias = productosRaw
