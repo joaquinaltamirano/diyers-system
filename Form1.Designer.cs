@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ListViewItem listViewItem1 = new ListViewItem(new string[] { "Prueba", "AAAAA" }, -1);
             lbl_Dolar = new Label();
             txt_Dolar = new TextBox();
             btn_Editar = new Button();
             lbl_Categoria = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
+            btn_Ferreteria = new Button();
+            btnPintura = new Button();
+            btn_Maderera = new Button();
+            btn_Construccion = new Button();
+            btn_Instalaciones = new Button();
             btn_agregarCategoria = new Button();
             button6 = new Button();
-            textBox1 = new TextBox();
+            txt_Busqueda = new TextBox();
             button7 = new Button();
             listView1 = new ListView();
             label1 = new Label();
@@ -89,50 +88,50 @@
             lbl_Categoria.TabIndex = 3;
             lbl_Categoria.Text = "CATEGORÍA";
             // 
-            // button1
+            // btn_Ferreteria
             // 
-            button1.Location = new Point(72, 199);
-            button1.Name = "button1";
-            button1.Size = new Size(63, 66);
-            button1.TabIndex = 4;
-            button1.Text = "Ferreteria";
-            button1.UseVisualStyleBackColor = true;
+            btn_Ferreteria.Location = new Point(72, 199);
+            btn_Ferreteria.Name = "btn_Ferreteria";
+            btn_Ferreteria.Size = new Size(63, 66);
+            btn_Ferreteria.TabIndex = 4;
+            btn_Ferreteria.Text = "Ferreteria";
+            btn_Ferreteria.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnPintura
             // 
-            button2.Location = new Point(149, 199);
-            button2.Name = "button2";
-            button2.Size = new Size(64, 66);
-            button2.TabIndex = 5;
-            button2.Text = "Pintura";
-            button2.UseVisualStyleBackColor = true;
+            btnPintura.Location = new Point(149, 199);
+            btnPintura.Name = "btnPintura";
+            btnPintura.Size = new Size(64, 66);
+            btnPintura.TabIndex = 5;
+            btnPintura.Text = "Pintura";
+            btnPintura.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_Maderera
             // 
-            button3.Location = new Point(228, 199);
-            button3.Name = "button3";
-            button3.Size = new Size(57, 66);
-            button3.TabIndex = 6;
-            button3.Text = "Maderera";
-            button3.UseVisualStyleBackColor = true;
+            btn_Maderera.Location = new Point(228, 199);
+            btn_Maderera.Name = "btn_Maderera";
+            btn_Maderera.Size = new Size(57, 66);
+            btn_Maderera.TabIndex = 6;
+            btn_Maderera.Text = "Maderera";
+            btn_Maderera.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btn_Construccion
             // 
-            button4.Location = new Point(362, 199);
-            button4.Name = "button4";
-            button4.Size = new Size(59, 66);
-            button4.TabIndex = 8;
-            button4.Text = "Construccion";
-            button4.UseVisualStyleBackColor = true;
+            btn_Construccion.Location = new Point(362, 199);
+            btn_Construccion.Name = "btn_Construccion";
+            btn_Construccion.Size = new Size(59, 66);
+            btn_Construccion.TabIndex = 8;
+            btn_Construccion.Text = "Construccion";
+            btn_Construccion.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn_Instalaciones
             // 
-            button5.Location = new Point(296, 199);
-            button5.Name = "button5";
-            button5.Size = new Size(57, 66);
-            button5.TabIndex = 7;
-            button5.Text = "Instalaciones";
-            button5.UseVisualStyleBackColor = true;
+            btn_Instalaciones.Location = new Point(296, 199);
+            btn_Instalaciones.Name = "btn_Instalaciones";
+            btn_Instalaciones.Size = new Size(57, 66);
+            btn_Instalaciones.TabIndex = 7;
+            btn_Instalaciones.Text = "Instalaciones";
+            btn_Instalaciones.UseVisualStyleBackColor = true;
             // 
             // btn_agregarCategoria
             // 
@@ -153,15 +152,14 @@
             button6.Text = "Exportar Datos";
             button6.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txt_Busqueda
             // 
-            textBox1.Enabled = false;
-            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(72, 295);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(349, 29);
-            textBox1.TabIndex = 11;
-            textBox1.Text = "Escribí un producto...";
+            txt_Busqueda.Enabled = false;
+            txt_Busqueda.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_Busqueda.Location = new Point(72, 295);
+            txt_Busqueda.Name = "txt_Busqueda";
+            txt_Busqueda.Size = new Size(349, 29);
+            txt_Busqueda.TabIndex = 11;
             // 
             // button7
             // 
@@ -174,12 +172,16 @@
             // 
             // listView1
             // 
-            listView1.Items.AddRange(new ListViewItem[] { listViewItem1 });
+            listView1.FullRowSelect = true;
+            listView1.GridLines = true;
             listView1.Location = new Point(72, 385);
             listView1.Name = "listView1";
             listView1.Size = new Size(349, 287);
             listView1.TabIndex = 13;
             listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Tile;
+            listView1.DoubleClick += listView1_DoubleClick;
+            listView1.KeyDown += listView1_KeyDown;
             // 
             // label1
             // 
@@ -232,20 +234,21 @@
             Controls.Add(label1);
             Controls.Add(listView1);
             Controls.Add(button7);
-            Controls.Add(textBox1);
+            Controls.Add(txt_Busqueda);
             Controls.Add(button6);
             Controls.Add(btn_agregarCategoria);
-            Controls.Add(button4);
-            Controls.Add(button5);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btn_Construccion);
+            Controls.Add(btn_Instalaciones);
+            Controls.Add(btn_Maderera);
+            Controls.Add(btnPintura);
+            Controls.Add(btn_Ferreteria);
             Controls.Add(lbl_Categoria);
             Controls.Add(btn_Editar);
             Controls.Add(txt_Dolar);
             Controls.Add(lbl_Dolar);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -256,14 +259,14 @@
         private TextBox txt_Dolar;
         private Button btn_Editar;
         private Label lbl_Categoria;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
+        private Button btn_Ferreteria;
+        private Button btnPintura;
+        private Button btn_Maderera;
+        private Button btn_Construccion;
+        private Button btn_Instalaciones;
         private Button btn_agregarCategoria;
         private Button button6;
-        private TextBox textBox1;
+        private TextBox txt_Busqueda;
         private Button button7;
         private ListView listView1;
         private Label label1;
