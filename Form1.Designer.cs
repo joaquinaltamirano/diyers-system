@@ -50,9 +50,9 @@
             btnConstruccion = new ReaLTaiizor.Controls.RoyalEllipseButton();
             foxButton1 = new ReaLTaiizor.Controls.FoxButton();
             button3 = new ReaLTaiizor.Controls.Button();
-            button1 = new ReaLTaiizor.Controls.Button();
-            button2 = new ReaLTaiizor.Controls.Button();
-            button4 = new ReaLTaiizor.Controls.Button();
+            btn_Cerrar = new ReaLTaiizor.Controls.Button();
+            btn_Minimizar = new ReaLTaiizor.Controls.Button();
+            btn_Volver = new ReaLTaiizor.Controls.Button();
             label3 = new Label();
             label4 = new Label();
             panel7 = new Panel();
@@ -126,9 +126,9 @@
             txt_Busqueda.BorderStyle = BorderStyle.None;
             txt_Busqueda.CharacterCasing = CharacterCasing.Upper;
             txt_Busqueda.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_Busqueda.Location = new Point(73, 325);
+            txt_Busqueda.Location = new Point(63, 329);
             txt_Busqueda.Name = "txt_Busqueda";
-            txt_Busqueda.Size = new Size(349, 26);
+            txt_Busqueda.Size = new Size(359, 26);
             txt_Busqueda.TabIndex = 11;
             txt_Busqueda.TextChanged += txt_Busqueda_TextChanged;
             txt_Busqueda.KeyDown += txt_Busqueda_KeyDown;
@@ -354,7 +354,7 @@
             foxButton1.ForeColor = Color.White;
             foxButton1.Location = new Point(379, 102);
             foxButton1.Name = "foxButton1";
-            foxButton1.OverColor = Color.FromArgb(242, 242, 242);
+            foxButton1.OverColor = Color.FromArgb(44, 30, 155);
             foxButton1.Size = new Size(206, 34);
             foxButton1.TabIndex = 35;
             foxButton1.Text = "EXPORTAR DATOS";
@@ -363,73 +363,75 @@
             // 
             button3.BackColor = Color.FromArgb(239, 192, 74);
             button3.BorderColor = Color.FromArgb(239, 192, 74);
-            button3.EnteredBorderColor = Color.FromArgb(239, 192, 74);
-            button3.EnteredColor = Color.FromArgb(239, 192, 74);
+            button3.EnteredBorderColor = Color.FromArgb(44, 30, 155);
+            button3.EnteredColor = Color.FromArgb(44, 30, 155);
             button3.Font = new Font("Microsoft Sans Serif", 12F);
             button3.Image = (Image)resources.GetObject("button3.Image");
             button3.ImageAlign = ContentAlignment.MiddleCenter;
             button3.InactiveColor = Color.FromArgb(239, 192, 74);
             button3.Location = new Point(227, 102);
             button3.Name = "button3";
-            button3.PressedBorderColor = Color.FromArgb(165, 37, 37);
-            button3.PressedColor = Color.FromArgb(165, 37, 37);
+            button3.PressedBorderColor = Color.FromArgb(239, 192, 74);
+            button3.PressedColor = Color.FromArgb(239, 192, 74);
             button3.Size = new Size(39, 34);
             button3.TabIndex = 36;
             button3.TextAlignment = StringAlignment.Center;
             // 
-            // button1
+            // btn_Cerrar
             // 
-            button1.BackColor = Color.FromArgb(247, 236, 234);
-            button1.BorderColor = Color.FromArgb(247, 236, 234);
-            button1.EnteredBorderColor = Color.FromArgb(239, 192, 74);
-            button1.EnteredColor = Color.FromArgb(239, 192, 74);
-            button1.Font = new Font("Microsoft Sans Serif", 12F);
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.ImageAlign = ContentAlignment.MiddleCenter;
-            button1.InactiveColor = Color.FromArgb(247, 236, 234);
-            button1.Location = new Point(535, -1);
-            button1.Name = "button1";
-            button1.PressedBorderColor = Color.FromArgb(165, 37, 37);
-            button1.PressedColor = Color.FromArgb(165, 37, 37);
-            button1.Size = new Size(48, 45);
-            button1.TabIndex = 37;
-            button1.TextAlignment = StringAlignment.Center;
+            btn_Cerrar.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.BorderColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.EnteredBorderColor = Color.FromArgb(239, 192, 74);
+            btn_Cerrar.EnteredColor = Color.FromArgb(239, 192, 74);
+            btn_Cerrar.Font = new Font("Microsoft Sans Serif", 12F);
+            btn_Cerrar.Image = (Image)resources.GetObject("btn_Cerrar.Image");
+            btn_Cerrar.ImageAlign = ContentAlignment.MiddleCenter;
+            btn_Cerrar.InactiveColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.Location = new Point(535, -1);
+            btn_Cerrar.Name = "btn_Cerrar";
+            btn_Cerrar.PressedBorderColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.PressedColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.Size = new Size(48, 45);
+            btn_Cerrar.TabIndex = 37;
+            btn_Cerrar.TextAlignment = StringAlignment.Center;
+            btn_Cerrar.Click += btn_Cerrar_Click;
             // 
-            // button2
+            // btn_Minimizar
             // 
-            button2.BackColor = Color.FromArgb(247, 236, 234);
-            button2.BorderColor = Color.FromArgb(247, 236, 234);
-            button2.EnteredBorderColor = Color.FromArgb(239, 192, 74);
-            button2.EnteredColor = Color.FromArgb(239, 192, 74);
-            button2.Font = new Font("Microsoft Sans Serif", 12F);
-            button2.Image = (Image)resources.GetObject("button2.Image");
-            button2.ImageAlign = ContentAlignment.MiddleCenter;
-            button2.InactiveColor = Color.FromArgb(247, 236, 234);
-            button2.Location = new Point(492, -1);
-            button2.Name = "button2";
-            button2.PressedBorderColor = Color.FromArgb(165, 37, 37);
-            button2.PressedColor = Color.FromArgb(165, 37, 37);
-            button2.Size = new Size(48, 45);
-            button2.TabIndex = 38;
-            button2.TextAlignment = StringAlignment.Center;
+            btn_Minimizar.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.BorderColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.EnteredBorderColor = Color.FromArgb(239, 192, 74);
+            btn_Minimizar.EnteredColor = Color.FromArgb(239, 192, 74);
+            btn_Minimizar.Font = new Font("Microsoft Sans Serif", 12F);
+            btn_Minimizar.Image = (Image)resources.GetObject("btn_Minimizar.Image");
+            btn_Minimizar.ImageAlign = ContentAlignment.MiddleCenter;
+            btn_Minimizar.InactiveColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.Location = new Point(492, -1);
+            btn_Minimizar.Name = "btn_Minimizar";
+            btn_Minimizar.PressedBorderColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.PressedColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.Size = new Size(48, 45);
+            btn_Minimizar.TabIndex = 38;
+            btn_Minimizar.TextAlignment = StringAlignment.Center;
+            btn_Minimizar.Click += btn_Minimizar_Click;
             // 
-            // button4
+            // btn_Volver
             // 
-            button4.BackColor = Color.FromArgb(247, 236, 234);
-            button4.BorderColor = Color.FromArgb(247, 236, 234);
-            button4.EnteredBorderColor = Color.FromArgb(239, 192, 74);
-            button4.EnteredColor = Color.FromArgb(239, 192, 74);
-            button4.Font = new Font("Microsoft Sans Serif", 12F);
-            button4.Image = (Image)resources.GetObject("button4.Image");
-            button4.ImageAlign = ContentAlignment.MiddleCenter;
-            button4.InactiveColor = Color.FromArgb(247, 236, 234);
-            button4.Location = new Point(0, -1);
-            button4.Name = "button4";
-            button4.PressedBorderColor = Color.FromArgb(165, 37, 37);
-            button4.PressedColor = Color.FromArgb(165, 37, 37);
-            button4.Size = new Size(48, 45);
-            button4.TabIndex = 39;
-            button4.TextAlignment = StringAlignment.Center;
+            btn_Volver.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.BorderColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.EnteredBorderColor = Color.FromArgb(239, 192, 74);
+            btn_Volver.EnteredColor = Color.FromArgb(239, 192, 74);
+            btn_Volver.Font = new Font("Microsoft Sans Serif", 12F);
+            btn_Volver.Image = (Image)resources.GetObject("btn_Volver.Image");
+            btn_Volver.ImageAlign = ContentAlignment.MiddleCenter;
+            btn_Volver.InactiveColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.Location = new Point(0, -1);
+            btn_Volver.Name = "btn_Volver";
+            btn_Volver.PressedBorderColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.PressedColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.Size = new Size(48, 45);
+            btn_Volver.TabIndex = 39;
+            btn_Volver.TextAlignment = StringAlignment.Center;
             // 
             // label3
             // 
@@ -605,9 +607,9 @@
             Controls.Add(panel13);
             Controls.Add(panel9);
             Controls.Add(panel7);
-            Controls.Add(button4);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btn_Volver);
+            Controls.Add(btn_Minimizar);
+            Controls.Add(btn_Cerrar);
             Controls.Add(button3);
             Controls.Add(foxButton1);
             Controls.Add(panel6);
@@ -676,9 +678,9 @@
         private ReaLTaiizor.Controls.RoyalEllipseButton btnConstruccion;
         private ReaLTaiizor.Controls.FoxButton foxButton1;
         private ReaLTaiizor.Controls.Button button3;
-        private ReaLTaiizor.Controls.Button button1;
-        private ReaLTaiizor.Controls.Button button2;
-        private ReaLTaiizor.Controls.Button button4;
+        private ReaLTaiizor.Controls.Button btn_Cerrar;
+        private ReaLTaiizor.Controls.Button btn_Minimizar;
+        private ReaLTaiizor.Controls.Button btn_Volver;
         private Label label3;
         private Label label4;
         private Panel panel7;

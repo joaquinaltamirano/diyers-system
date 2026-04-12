@@ -2,31 +2,156 @@
 {
     public partial class form1 : Form
     {
-        #region DATOS
-
         List<Producto> productosRaw = new List<Producto>();
         List<ProductoFamilia> familias = new List<ProductoFamilia>();
 
         string categoriaSeleccionada = null;
 
-        #endregion
+        Nodo GenerarArbolMock(string familia)
+        {
+            if (familia == "AEROSOL")
+            {
+                return new Nodo
+                {
+                    Nombre = "AEROSOL",
+                    Hijos = new List<Nodo>
+            {
+                CrearColor("ROJO"),
+                CrearColor("AZUL"),
+                CrearColor("VERDE")
+            }
+                };
+            }
 
-        #region OVERLAY
+            if (familia == "TORNILLO")
+            {
+                return new Nodo
+                {
+                    Nombre = "TORNILLO",
+                    Hijos = new List<Nodo>
+            {
+                CrearTipoTornillo("PHILIPS"),
+                CrearTipoTornillo("PLANO"),
+                CrearTipoTornillo("ALLEN")
+            }
+                };
+            }
 
-        Panel overlay;
-        Panel modalContainer;
-        Panel containerContenido;
+            if (familia == "CAÑO")
+            {
+                return new Nodo
+                {
+                    Nombre = "CAÑO",
+                    Hijos = new List<Nodo>
+            {
+                CrearMedidaCaño("20x20"),
+                CrearMedidaCaño("40x40"),
+                CrearMedidaCaño("60x40")
+            }
+                };
+            }
 
-        Stack<Nodo> historial = new Stack<Nodo>();
-        Nodo nodoActual;
+            if (familia == "TABLA")
+            {
+                return new Nodo
+                {
+                    Nombre = "TABLA",
+                    Hijos = new List<Nodo>
+            {
+                CrearMadera("PINO"),
+                CrearMadera("EUCALIPTO"),
+                CrearMadera("CEDRO")
+            }
+                };
+            }
 
-        #endregion
+            return new Nodo { Nombre = "VACIO" };
+        }
+        Nodo CrearColor(string color)
+        {
+            return new Nodo
+            {
+                Nombre = color,
+                Hijos = new List<Nodo>
+        {
+            CrearMarca(color, "KUWAIT"),
+            CrearMarca(color, "SINTEPLAST")
+        }
+            };
+        }
 
-        #region INIT
+        Nodo CrearMarca(string color, string marca)
+        {
+            return new Nodo
+            {
+                Nombre = marca,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"AEROSOL {marca} {color} 40CC"),
+            CrearProductoFinal($"AEROSOL {marca} {color} 80CC")
+        }
+            };
+        }
+
+        Nodo CrearTipoTornillo(string tipo)
+        {
+            return new Nodo
+            {
+                Nombre = tipo,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"TORNILLO {tipo} 8MM"),
+            CrearProductoFinal($"TORNILLO {tipo} 10MM")
+        }
+            };
+        }
+
+        Nodo CrearMedidaCaño(string medida)
+        {
+            return new Nodo
+            {
+                Nombre = medida,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"CAÑO ESTRUCTURAL {medida}"),
+        }
+            };
+        }
+
+        Nodo CrearMadera(string tipo)
+        {
+            return new Nodo
+            {
+                Nombre = tipo,
+                Hijos = new List<Nodo>
+        {
+            CrearProductoFinal($"TABLA {tipo} 2M"),
+            CrearProductoFinal($"TABLA {tipo} 3M")
+        }
+            };
+        }
+
+        Nodo CrearProductoFinal(string nombre)
+        {
+            return new Nodo
+            {
+                Nombre = nombre,
+                EsFinal = true,
+                ProductoFinal = new Producto
+                {
+                    NombreCompleto = nombre
+                }
+            };
+        }
 
         public form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txt_Dolar.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,196 +165,7 @@
             GenerarDataMock();
             GenerarFamilias();
             FiltrarTodo();
-
-            InicializarOverlay();
         }
-
-        #endregion
-
-        #region OVERLAY SETUP
-
-        void InicializarOverlay()
-        {
-            overlay = new Panel();
-            overlay.Dock = DockStyle.Fill;
-            overlay.BackColor = Color.FromArgb(150, 0, 0, 0);
-            overlay.Visible = false;
-
-            modalContainer = new Panel();
-            modalContainer.Size = new Size(500, 400);
-            modalContainer.BackColor = Color.White;
-
-            modalContainer.Location = new Point(
-                (this.ClientSize.Width - modalContainer.Width) / 2,
-                (this.ClientSize.Height - modalContainer.Height) / 2
-            );
-
-            containerContenido = new Panel();
-            containerContenido.Dock = DockStyle.Fill;
-
-            modalContainer.Controls.Add(containerContenido);
-            overlay.Controls.Add(modalContainer);
-            this.Controls.Add(overlay);
-
-            overlay.BringToFront();
-
-            this.Resize += (s, e) =>
-            {
-                modalContainer.Location = new Point(
-                    (this.ClientSize.Width - modalContainer.Width) / 2,
-                    (this.ClientSize.Height - modalContainer.Height) / 2
-                );
-            };
-        }
-
-        void CerrarOverlay()
-        {
-            overlay.Visible = false;
-        }
-
-        #endregion
-
-        #region RENDER
-
-        void Render()
-        {
-            modalContainer.Controls.Clear();
-            modalContainer.Controls.Add(containerContenido);
-
-            containerContenido.Controls.Clear();
-
-            if (nodoActual.EsFinal)
-                RenderDetalle();
-            else
-                RenderOpciones();
-
-            RenderBotonesBase();
-        }
-
-        void RenderOpciones()
-        {
-            for (int i = nodoActual.Hijos.Count - 1; i >= 0; i--)
-            {
-                int index = i;
-
-                Button btn = new Button();
-                btn.Text = $"{i + 1}. {nodoActual.Hijos[i].Nombre}";
-                btn.Dock = DockStyle.Top;
-                btn.Height = 40;
-
-                btn.Click += (s, e) => Seleccionar(index);
-
-                containerContenido.Controls.Add(btn);
-            }
-        }
-
-        void RenderDetalle()
-        {
-            var p = nodoActual.ProductoFinal;
-
-            Label lbl = new Label();
-            lbl.Dock = DockStyle.Fill;
-            lbl.TextAlign = ContentAlignment.MiddleCenter;
-            lbl.Text = $"PRODUCTO\n\n{p.NombreCompleto}\n\nPRECIO: ---\nSTOCK: ---";
-
-            containerContenido.Controls.Add(lbl);
-        }
-
-        void RenderBotonesBase()
-        {
-            Button btnClose = new Button();
-            btnClose.Text = "X";
-            btnClose.Size = new Size(40, 30);
-            btnClose.Location = new Point(modalContainer.Width - 45, 5);
-            btnClose.Click += (s, e) => CerrarOverlay();
-
-            modalContainer.Controls.Add(btnClose);
-
-            if (historial.Count > 0)
-            {
-                Button btnBack = new Button();
-                btnBack.Text = "← Volver";
-                btnBack.Size = new Size(100, 30);
-                btnBack.Location = new Point(5, 5);
-
-                btnBack.Click += (s, e) => Volver();
-
-                modalContainer.Controls.Add(btnBack);
-            }
-        }
-
-        #endregion
-
-        #region NAVEGACION
-
-        void AbrirDetalle()
-        {
-            if (listView1.SelectedItems.Count == 0) return;
-
-            var familia = (ProductoFamilia)listView1.SelectedItems[0].Tag;
-
-            Nodo raiz = GenerarArbolMock(familia.Nombre);
-
-            historial.Clear();
-            nodoActual = raiz;
-
-            overlay.Visible = true;
-            overlay.BringToFront();
-
-            Render();
-        }
-
-        void Seleccionar(int index)
-        {
-            if (index >= nodoActual.Hijos.Count) return;
-
-            historial.Push(nodoActual);
-            nodoActual = nodoActual.Hijos[index];
-
-            Render();
-        }
-
-        void Volver()
-        {
-            if (historial.Count > 0)
-            {
-                nodoActual = historial.Pop();
-                Render();
-            }
-            else
-            {
-                CerrarOverlay();
-            }
-        }
-
-        #endregion
-
-        #region TECLADO
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (!overlay.Visible)
-                return base.ProcessCmdKey(ref msg, keyData);
-
-            if (keyData >= Keys.D1 && keyData <= Keys.D9)
-            {
-                int index = keyData - Keys.D1;
-                Seleccionar(index);
-                return true;
-            }
-
-            if (keyData == Keys.Escape)
-            {
-                Volver();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        #endregion
-
-        #region LISTVIEW
 
         void CargarListView(List<ProductoFamilia> lista)
         {
@@ -243,6 +179,83 @@
 
                 listView1.Items.Add(item);
             }
+        }
+
+        void AbrirDetalle()
+        {
+            if (listView1.SelectedItems.Count == 0) return;
+
+            var familia = (ProductoFamilia)listView1.SelectedItems[0].Tag;
+
+            Nodo raiz = GenerarArbolMock(familia.Nombre);
+
+            FormSelector fs = new FormSelector(raiz);
+
+            fs.StartPosition = FormStartPosition.Manual;
+
+            fs.Location = new Point(
+                this.Location.X + (this.Width - fs.Width) / 2,
+                this.Location.Y + (this.Height - fs.Height) / 2
+            );
+
+            fs.ShowDialog();
+        }
+
+        void GenerarFamilias()
+        {
+            familias = productosRaw
+                .Select(p => new ProductoFamilia
+                {
+                    Nombre = p.NombreCompleto.Split(' ')[0],
+                    Categoria = p.Categoria
+                })
+                .GroupBy(f => f.Nombre + f.Categoria)
+                .Select(g => g.First())
+                .ToList();
+        }
+
+        void FiltrarTodo()
+        {
+            var texto = txt_Busqueda.Text.ToLower();
+
+            var filtrados = familias
+                .Where(f =>
+                    (categoriaSeleccionada == null || f.Categoria == categoriaSeleccionada)
+                    && f.Nombre.ToLower().Contains(texto)
+                )
+                .ToList();
+
+            CargarListView(filtrados);
+        }
+
+        void GenerarDataMock()
+        {
+            // PINTURA
+            productosRaw.Add(new Producto { NombreCompleto = "AEROSOL KUWAIT ROJO 80CC", Categoria = "Pintura" });
+            productosRaw.Add(new Producto { NombreCompleto = "AEROSOL KUWAIT AZUL 60CC", Categoria = "Pintura" });
+            productosRaw.Add(new Producto { NombreCompleto = "LATEX INTERIOR BLANCO 20L", Categoria = "Pintura" });
+            productosRaw.Add(new Producto { NombreCompleto = "ESMALTE SINTETICO NEGRO 4L", Categoria = "Pintura" });
+
+            // FERRETERIA
+            productosRaw.Add(new Producto { NombreCompleto = "TORNILLO PHILIPS 10MM", Categoria = "Ferreteria" });
+            productosRaw.Add(new Producto { NombreCompleto = "TORNILLO PLANO 8MM", Categoria = "Ferreteria" });
+            productosRaw.Add(new Producto { NombreCompleto = "TUERCA HEXAGONAL 10MM", Categoria = "Ferreteria" });
+            productosRaw.Add(new Producto { NombreCompleto = "ARANDELA 8MM", Categoria = "Ferreteria" });
+
+            // CONSTRUCCION
+            productosRaw.Add(new Producto { NombreCompleto = "CAÑO ESTRUCTURAL 20X20", Categoria = "Construccion" });
+            productosRaw.Add(new Producto { NombreCompleto = "CAÑO ESTRUCTURAL 40X40", Categoria = "Construccion" });
+            productosRaw.Add(new Producto { NombreCompleto = "PERFIL U 100MM", Categoria = "Construccion" });
+
+            // INSTALACIONES
+            productosRaw.Add(new Producto { NombreCompleto = "CABLE 2.5MM ROJO", Categoria = "Instalaciones" });
+            productosRaw.Add(new Producto { NombreCompleto = "CABLE 4MM NEGRO", Categoria = "Instalaciones" });
+            productosRaw.Add(new Producto { NombreCompleto = "TERMICA 20A", Categoria = "Instalaciones" });
+
+            // MADERERA 
+            productosRaw.Add(new Producto { NombreCompleto = "TABLA PINO 2X4", Categoria = "Maderera" });
+            productosRaw.Add(new Producto { NombreCompleto = "FENOLICO 18MM", Categoria = "Maderera" });
+            productosRaw.Add(new Producto { NombreCompleto = "LISTON EUCALIPTO 3M", Categoria = "Maderera" });
         }
 
         private void listView1_KeyDown(object sender, KeyEventArgs e)
@@ -271,29 +284,6 @@
             AbrirDetalle();
         }
 
-        private void listView1_MouseClick(object sender, MouseEventArgs e)
-        {
-            txt_Busqueda.Focus();
-        }
-
-        #endregion
-
-        #region BUSQUEDA
-
-        void FiltrarTodo()
-        {
-            var texto = txt_Busqueda.Text.ToLower();
-
-            var filtrados = familias
-                .Where(f =>
-                    (categoriaSeleccionada == null || f.Categoria == categoriaSeleccionada)
-                    && f.Nombre.ToLower().Contains(texto)
-                )
-                .ToList();
-
-            CargarListView(filtrados);
-        }
-
         private void txt_Busqueda_TextChanged(object sender, EventArgs e)
         {
             FiltrarTodo();
@@ -311,9 +301,15 @@
             }
         }
 
-        #endregion
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            txt_Busqueda.Focus();
+        }
 
-        #region CATEGORIAS
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         private void btn_Ferreteria_Click(object sender, EventArgs e)
         {
@@ -357,96 +353,14 @@
             txt_Busqueda.Focus();
         }
 
-        #endregion
-
-        #region DATA MOCK
-
-        void GenerarFamilias()
+        private void btn_Cerrar_Click(object sender, EventArgs e)
         {
-            familias = productosRaw
-                .Select(p => new ProductoFamilia
-                {
-                    Nombre = p.NombreCompleto.Split(' ')[0],
-                    Categoria = p.Categoria
-                })
-                .GroupBy(f => f.Nombre + f.Categoria)
-                .Select(g => g.First())
-                .ToList();
+            Application.Exit();
         }
 
-        void GenerarDataMock()
+        private void btn_Minimizar_Click(object sender, EventArgs e)
         {
-            productosRaw.Add(new Producto { NombreCompleto = "AEROSOL KUWAIT ROJO 80CC", Categoria = "Pintura" });
-            productosRaw.Add(new Producto { NombreCompleto = "TORNILLO PHILIPS 10MM", Categoria = "Ferreteria" });
-            productosRaw.Add(new Producto { NombreCompleto = "CAÑO ESTRUCTURAL 20X20", Categoria = "Construccion" });
-            productosRaw.Add(new Producto { NombreCompleto = "CABLE 2.5MM ROJO", Categoria = "Instalaciones" });
-            productosRaw.Add(new Producto { NombreCompleto = "TABLA PINO 2X4", Categoria = "Maderera" });
+            this.WindowState = FormWindowState.Minimized;
         }
-
-        #endregion
-
-        #region ARBOL MOCK
-
-        Nodo GenerarArbolMock(string familia)
-        {
-            if (familia == "AEROSOL")
-                return new Nodo { Nombre = "AEROSOL", Hijos = new List<Nodo> { CrearColor("ROJO"), CrearColor("AZUL") } };
-
-            if (familia == "TORNILLO")
-                return new Nodo { Nombre = "TORNILLO", Hijos = new List<Nodo> { CrearTipoTornillo("PHILIPS") } };
-
-            return new Nodo { Nombre = "VACIO" };
-        }
-
-        Nodo CrearColor(string color)
-        {
-            return new Nodo
-            {
-                Nombre = color,
-                Hijos = new List<Nodo>
-                {
-                    CrearMarca(color, "KUWAIT")
-                }
-            };
-        }
-
-        Nodo CrearMarca(string color, string marca)
-        {
-            return new Nodo
-            {
-                Nombre = marca,
-                Hijos = new List<Nodo>
-                {
-                    CrearProductoFinal($"AEROSOL {marca} {color} 80CC")
-                }
-            };
-        }
-
-        Nodo CrearTipoTornillo(string tipo)
-        {
-            return new Nodo
-            {
-                Nombre = tipo,
-                Hijos = new List<Nodo>
-                {
-                    CrearProductoFinal($"TORNILLO {tipo} 10MM")
-                }
-            };
-        }
-
-        Nodo CrearProductoFinal(string nombre)
-        {
-            return new Nodo
-            {
-                Nombre = nombre,
-                EsFinal = true,
-                ProductoFinal = new Producto
-                {
-                    NombreCompleto = nombre
-                }
-            };
-        }
-
-        #endregion
     }
 }
