@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Diyers_System
+﻿namespace Diyers_System
 {
     public partial class FormSelector : Form
     {
@@ -26,12 +16,12 @@ namespace Diyers_System
         {
             InitializeComponent();
 
-            this.KeyPreview = true;
-            this.ActiveControl = null;
+            KeyPreview = true;
+            ActiveControl = null;
 
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.ShowInTaskbar = false;
-            this.StartPosition = FormStartPosition.Manual;
+            FormBorderStyle = FormBorderStyle.None;
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.Manual;
 
             nodoRaiz = nodo;
 
@@ -48,19 +38,16 @@ namespace Diyers_System
 
             flowLayoutPanel1.Controls.Clear();
 
-            // TITULO (siempre raíz)
             lbl_Titulo.Text = nodoRaiz.Nombre;
             lbl_Titulo.Visible = !nodoActual.EsFinal;
 
-            // ATRIBUTO
             lbl_Atributo.Text = ObtenerAtributo();
 
             int i = 1;
 
             foreach (var hijo in nodo.Hijos)
             {
-                var btn = CrearFoxButton(hijo, i);
-                flowLayoutPanel1.Controls.Add(btn);
+                flowLayoutPanel1.Controls.Add(CrearFoxButton(hijo, i));
                 i++;
             }
         }
@@ -70,15 +57,13 @@ namespace Diyers_System
             if (nodoActual.EsFinal)
                 return "DETALLE";
 
-            int nivel = historial.Count;
-
-            switch (nivel)
+            return historial.Count switch
             {
-                case 0: return "COLOR";
-                case 1: return "MARCA";
-                case 2: return "MEDIDA";
-                default: return "OPCION";
-            }
+                0 => "COLOR",
+                1 => "MARCA",
+                2 => "MEDIDA",
+                _ => "OPCIÓN"
+            };
         }
 
         #endregion
@@ -87,51 +72,55 @@ namespace Diyers_System
 
         Control CrearFoxButton(Nodo hijo, int index)
         {
-            Panel foxButton = new Panel();
-            foxButton.Width = 118;
-            foxButton.Height = 45;
-            foxButton.Margin = new Padding(10);
-            foxButton.BackColor = Color.WhiteSmoke;
-            foxButton.BorderStyle = BorderStyle.FixedSingle;
-            foxButton.Cursor = Cursors.Hand;
-            foxButton.Tag = hijo;
+            Panel btn = new Panel
+            {
+                Width = 150,
+                Height = 60,
+                Margin = new Padding(10),
+                BackColor = Color.WhiteSmoke,
+                BorderStyle = BorderStyle.FixedSingle,
+                Cursor = Cursors.Hand,
+                Tag = hijo
+            };
 
-            // 🟨 BLOQUE IZQUIERDO
-            Panel panelNumero = new Panel();
-            panelNumero.Width = 19;
-            panelNumero.Dock = DockStyle.Left;
-            panelNumero.BackColor = Color.FromArgb(239, 192, 74);
+            Panel bloque = new Panel
+            {
+                Width = 35,
+                Dock = DockStyle.Left,
+                BackColor = Color.Gold
+            };
 
-            // 🔵 NUMERO
-            Label lblNumero = new Label();
-            lblNumero.Text = index.ToString();
-            lblNumero.Dock = DockStyle.Fill;
-            lblNumero.TextAlign = ContentAlignment.MiddleCenter;
-            lblNumero.Font = new Font("MADE TOMMY", 14, FontStyle.Bold);
-            lblNumero.ForeColor = Color.Blue;
+            Label lblNum = new Label
+            {
+                Text = index.ToString(),
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                ForeColor = Color.Blue
+            };
 
-            panelNumero.Controls.Add(lblNumero);
+            bloque.Controls.Add(lblNum);
 
-            // TEXTO
-            Label lblTexto = new Label();
-            lblTexto.Text = ObtenerTextoCorto(hijo);
-            lblTexto.Dock = DockStyle.Fill;
-            lblTexto.TextAlign = ContentAlignment.MiddleLeft;
-            lblTexto.Font = new Font("MADE TOMMY", 9, FontStyle.Bold);
-            lblTexto.Padding = new Padding(6, 0, 0, 0);
+            Label lblTexto = new Label
+            {
+                Text = ObtenerTextoCorto(hijo),
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Padding = new Padding(6, 0, 0, 0)
+            };
 
-            foxButton.Controls.Add(lblTexto);
-            foxButton.Controls.Add(panelNumero);
+            btn.Controls.Add(lblTexto);
+            btn.Controls.Add(bloque);
 
-            // EVENTOS (click en todo)
-            foxButton.Click += (s, e) => ClickOpcion(foxButton);
-            lblTexto.Click += (s, e) => ClickOpcion(foxButton);
-            panelNumero.Click += (s, e) => ClickOpcion(foxButton);
-            lblNumero.Click += (s, e) => ClickOpcion(foxButton);
+            btn.Click += (s, e) => ClickOpcion(btn);
+            lblTexto.Click += (s, e) => ClickOpcion(btn);
+            bloque.Click += (s, e) => ClickOpcion(btn);
+            lblNum.Click += (s, e) => ClickOpcion(btn);
 
-            foxButton.TabStop = false;
+            btn.TabStop = false;
 
-            return foxButton;
+            return btn;
         }
 
         void ClickOpcion(Control ctrl)
@@ -140,16 +129,20 @@ namespace Diyers_System
 
             historial.Push(nodoActual);
 
+            nodoActual = nodo;
+
             if (nodo.EsFinal)
-            {
-                nodoActual = nodo;
                 MostrarDetalle(nodo);
-            }
             else
-            {
-                nodoActual = nodo;
                 CargarNodo(nodo);
-            }
+        }
+
+        string ObtenerTextoCorto(Nodo nodo)
+        {
+            if (!nodo.EsFinal)
+                return nodo.Nombre;
+
+            return nodo.ProductoFinal.NombreCompleto.Split(' ').Last();
         }
 
         #endregion
@@ -158,20 +151,91 @@ namespace Diyers_System
 
         void MostrarDetalle(Nodo nodo)
         {
-
             flowLayoutPanel1.Controls.Clear();
 
             lbl_Titulo.Visible = false;
             lbl_Atributo.Text = "DETALLE";
 
-            Label lbl = new Label();
-            lbl.Dock = DockStyle.Fill;
-            lbl.TextAlign = ContentAlignment.MiddleCenter;
-            lbl.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            var nombre = ObtenerNombreBase(nodo.ProductoFinal.NombreCompleto);
+            var variante = ObtenerUltimaParte(nodo.ProductoFinal.NombreCompleto);
 
-            lbl.Text = $"PRODUCTO\n\n{nodo.ProductoFinal.NombreCompleto}\n\nPRECIO: ---\nSTOCK: ---";
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.WrapContents = false;
 
-            flowLayoutPanel1.Controls.Add(lbl);
+            flowLayoutPanel1.Controls.Add(CrearLabelTitulo(nombre));
+            flowLayoutPanel1.Controls.Add(CrearLabelSub(variante));
+
+            flowLayoutPanel1.Controls.Add(CrearCampo("COSTO", "$6453"));
+            flowLayoutPanel1.Controls.Add(CrearCampo("PRECIO", "$11531"));
+            flowLayoutPanel1.Controls.Add(CrearCampo("PRECIO ML", "$14564"));
+            flowLayoutPanel1.Controls.Add(CrearCampo("STOCK", "132"));
+            flowLayoutPanel1.Controls.Add(CrearCampo("EN ML", "✔"));
+        }
+
+        Control CrearLabelTitulo(string texto)
+        {
+            return new Label
+            {
+                Text = texto,
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                ForeColor = Color.FromArgb(40, 40, 140),
+                AutoSize = true,
+                Margin = new Padding(10, 20, 10, 5)
+            };
+        }
+
+        Control CrearLabelSub(string texto)
+        {
+            return new Label
+            {
+                Text = texto,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                AutoSize = true,
+                Margin = new Padding(10, 0, 10, 15)
+            };
+        }
+
+        Control CrearCampo(string label, string valor)
+        {
+            Panel cont = new Panel
+            {
+                Width = 300,
+                Height = 30,
+                Margin = new Padding(10, 5, 10, 5)
+            };
+
+            Label lbl = new Label
+            {
+                Text = label,
+                Width = 120,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            Label val = new Label
+            {
+                Text = valor,
+                BackColor = Color.Gainsboro,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(130, 3),
+                Size = new Size(100, 24)
+            };
+
+            cont.Controls.Add(lbl);
+            cont.Controls.Add(val);
+
+            return cont;
+        }
+
+        string ObtenerUltimaParte(string nombre)
+        {
+            return nombre.Split(' ').Last();
+        }
+
+        string ObtenerNombreBase(string nombre)
+        {
+            var partes = nombre.Split(' ');
+            return string.Join(" ", partes.Take(partes.Length - 1));
         }
 
         #endregion
@@ -187,9 +251,10 @@ namespace Diyers_System
             }
             else
             {
-                this.Close();
+                Close();
             }
         }
+
         private void btn_Cerrar_Click_1(object sender, EventArgs e)
         {
             Form root = this;
@@ -213,8 +278,6 @@ namespace Diyers_System
                 if (index < flowLayoutPanel1.Controls.Count)
                 {
                     var ctrl = flowLayoutPanel1.Controls[index];
-
-                    ctrl.BackColor = Color.Gainsboro;
                     ClickOpcion(ctrl);
                 }
 
@@ -231,14 +294,5 @@ namespace Diyers_System
         }
 
         #endregion
-
-        string ObtenerTextoCorto(Nodo nodo)
-        {
-            if (!nodo.EsFinal)
-                return nodo.Nombre;
-
-            var partes = nodo.ProductoFinal.NombreCompleto.Split(' ');
-            return partes.Last(); // 80CC
-        }
     }
 }

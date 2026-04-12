@@ -42,7 +42,7 @@
             flowLayoutPanel1.BackColor = Color.FromArgb(251, 247, 240);
             flowLayoutPanel1.Location = new Point(23, 113);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(437, 160);
+            flowLayoutPanel1.Size = new Size(447, 140);
             flowLayoutPanel1.TabIndex = 2;
             // 
             // btn_Cerrar
@@ -118,7 +118,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(251, 247, 240);
-            ClientSize = new Size(503, 273);
+            ClientSize = new Size(503, 268);
             Controls.Add(lbl_Titulo);
             Controls.Add(panel6);
             Controls.Add(lbl_Atributo);
