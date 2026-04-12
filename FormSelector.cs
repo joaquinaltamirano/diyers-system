@@ -1,4 +1,14 @@
-﻿namespace Diyers_System
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Diyers_System
 {
     public partial class FormSelector : Form
     {
@@ -16,12 +26,12 @@
         {
             InitializeComponent();
 
-            KeyPreview = true;
-            ActiveControl = null;
+            this.KeyPreview = true;
+            this.ActiveControl = null;
 
-            FormBorderStyle = FormBorderStyle.None;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.Manual;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.ShowInTaskbar = false;
+            this.StartPosition = FormStartPosition.Manual;
 
             nodoRaiz = nodo;
 
@@ -38,16 +48,19 @@
 
             flowLayoutPanel1.Controls.Clear();
 
+            // TITULO (siempre raíz)
             lbl_Titulo.Text = nodoRaiz.Nombre;
             lbl_Titulo.Visible = !nodoActual.EsFinal;
 
+            // ATRIBUTO
             lbl_Atributo.Text = ObtenerAtributo();
 
             int i = 1;
 
             foreach (var hijo in nodo.Hijos)
             {
-                flowLayoutPanel1.Controls.Add(CrearFoxButton(hijo, i));
+                var btn = CrearFoxButton(hijo, i);
+                flowLayoutPanel1.Controls.Add(btn);
                 i++;
             }
         }
@@ -57,13 +70,15 @@
             if (nodoActual.EsFinal)
                 return "DETALLE";
 
-            return historial.Count switch
+            int nivel = historial.Count;
+
+            switch (nivel)
             {
-                0 => "COLOR",
-                1 => "MARCA",
-                2 => "MEDIDA",
-                _ => "OPCIÓN"
-            };
+                case 0: return "COLOR";
+                case 1: return "MARCA";
+                case 2: return "MEDIDA";
+                default: return "OPCION";
+            }
         }
 
         #endregion
@@ -72,55 +87,52 @@
 
         Control CrearFoxButton(Nodo hijo, int index)
         {
-            Panel btn = new Panel
-            {
-                Width = 150,
-                Height = 60,
-                Margin = new Padding(10),
-                BackColor = Color.WhiteSmoke,
-                BorderStyle = BorderStyle.FixedSingle,
-                Cursor = Cursors.Hand,
-                Tag = hijo
-            };
+            Panel foxButton = new Panel();
+            foxButton.Width = 118;
+            foxButton.Height = 45;
+            foxButton.Margin = new Padding(10);
+            foxButton.BackColor = Color.WhiteSmoke;
+            foxButton.BorderStyle = BorderStyle.FixedSingle;
+            foxButton.Cursor = Cursors.Hand;
+            foxButton.Tag = hijo;
 
-            Panel bloque = new Panel
-            {
-                Width = 35,
-                Dock = DockStyle.Left,
-                BackColor = Color.Gold
-            };
+            // 🟨 BLOQUE IZQUIERDO
+            Panel panelNumero = new Panel();
+            panelNumero.Width = 19;
+            panelNumero.Dock = DockStyle.Left;
+            panelNumero.BackColor = Color.FromArgb(239, 192, 74);
 
-            Label lblNum = new Label
-            {
-                Text = index.ToString(),
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                ForeColor = Color.Blue
-            };
+            // 🔵 NUMERO
+            Label lblNumero = new Label();
+            lblNumero.Text = index.ToString();
+            lblNumero.Dock = DockStyle.Fill;
+            lblNumero.TextAlign = ContentAlignment.MiddleCenter;
+            lblNumero.Font = new Font("MADE TOMMY", 14, FontStyle.Bold);
+            lblNumero.ForeColor = Color.Blue;
 
-            bloque.Controls.Add(lblNum);
+            panelNumero.Controls.Add(lblNumero);
 
-            Label lblTexto = new Label
-            {
-                Text = ObtenerTextoCorto(hijo),
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleLeft,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                Padding = new Padding(6, 0, 0, 0)
-            };
+            // TEXTO
+            Label lblTexto = new Label();
+            lblTexto.Text = ObtenerTextoCorto(hijo);
+            lblTexto.Dock = DockStyle.Fill;
+            lblTexto.TextAlign = ContentAlignment.MiddleLeft;
+            lblTexto.Font = new Font("MADE TOMMY", 9, FontStyle.Bold);
+            lblTexto.Padding = new Padding(6, 0, 0, 0);
+            lblTexto.ForeColor = Color.FromArgb(56, 56, 56);
 
-            btn.Controls.Add(lblTexto);
-            btn.Controls.Add(bloque);
+            foxButton.Controls.Add(lblTexto);
+            foxButton.Controls.Add(panelNumero);
 
-            btn.Click += (s, e) => ClickOpcion(btn);
-            lblTexto.Click += (s, e) => ClickOpcion(btn);
-            bloque.Click += (s, e) => ClickOpcion(btn);
-            lblNum.Click += (s, e) => ClickOpcion(btn);
+            // EVENTOS (click en todo)
+            foxButton.Click += (s, e) => ClickOpcion(foxButton);
+            lblTexto.Click += (s, e) => ClickOpcion(foxButton);
+            panelNumero.Click += (s, e) => ClickOpcion(foxButton);
+            lblNumero.Click += (s, e) => ClickOpcion(foxButton);
 
-            btn.TabStop = false;
+            foxButton.TabStop = false;
 
-            return btn;
+            return foxButton;
         }
 
         void ClickOpcion(Control ctrl)
@@ -129,20 +141,16 @@
 
             historial.Push(nodoActual);
 
-            nodoActual = nodo;
-
             if (nodo.EsFinal)
+            {
+                nodoActual = nodo;
                 MostrarDetalle(nodo);
+            }
             else
+            {
+                nodoActual = nodo;
                 CargarNodo(nodo);
-        }
-
-        string ObtenerTextoCorto(Nodo nodo)
-        {
-            if (!nodo.EsFinal)
-                return nodo.Nombre;
-
-            return nodo.ProductoFinal.NombreCompleto.Split(' ').Last();
+            }
         }
 
         #endregion
@@ -152,75 +160,91 @@
         void MostrarDetalle(Nodo nodo)
         {
             flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.AutoScroll = true; 
 
             lbl_Titulo.Visible = false;
             lbl_Atributo.Text = "DETALLE";
 
-            var nombre = ObtenerNombreBase(nodo.ProductoFinal.NombreCompleto);
-            var variante = ObtenerUltimaParte(nodo.ProductoFinal.NombreCompleto);
+            var producto = nodo.ProductoFinal;
 
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.WrapContents = false;
+            // PANEL CONTENEDOR 
+            Panel card = new Panel();
 
-            flowLayoutPanel1.Controls.Add(CrearLabelTitulo(nombre));
-            flowLayoutPanel1.Controls.Add(CrearLabelSub(variante));
+            card.Width = flowLayoutPanel1.Width - 25;
+            card.Height = 220;
+            card.BackColor = Color.White;
+            card.Margin = new Padding(10, 5, 10, 10);
 
-            flowLayoutPanel1.Controls.Add(CrearCampo("COSTO", "$6453"));
-            flowLayoutPanel1.Controls.Add(CrearCampo("PRECIO", "$11531"));
-            flowLayoutPanel1.Controls.Add(CrearCampo("PRECIO ML", "$14564"));
-            flowLayoutPanel1.Controls.Add(CrearCampo("STOCK", "132"));
-            flowLayoutPanel1.Controls.Add(CrearCampo("EN ML", "✔"));
+            // TÍTULOS
+            Label lblNombre = new Label();
+            lblNombre.Text = ObtenerNombreBase(producto.NombreCompleto).ToUpper();
+            lblNombre.Font = new Font("MADE TOMMY", 14, FontStyle.Bold);
+            lblNombre.ForeColor = Color.FromArgb(40, 40, 140);
+            lblNombre.Location = new Point(20, 15);
+            lblNombre.AutoSize = true;
+
+            Label lblVariante = new Label();
+            lblVariante.Text = ObtenerUltimaParte(producto.NombreCompleto).ToUpper();
+            lblVariante.Font = new Font("MADE TOMMY", 12, FontStyle.Bold);
+            lblVariante.ForeColor = Color.FromArgb(56, 56, 56);
+            lblVariante.Location = new Point(20, 42);
+            lblVariante.AutoSize = true;
+
+            // COLUMNAS DE DATOS
+            // Columna 1 (Izquierda) 
+            card.Controls.Add(CrearCampo("COSTO", "$6453", 20, 90));
+            card.Controls.Add(CrearCampo("PRECIO", "$11531", 20, 135));
+
+            // Columna 2 (Derecha)  
+            card.Controls.Add(CrearCampo("STOCK", "132", 240, 90));
+            card.Controls.Add(CrearCampo("¿ESTÁ EN ML?", "✔", 240, 135, true));
+
+            card.Controls.Add(lblNombre);
+            card.Controls.Add(lblVariante);
+
+            flowLayoutPanel1.Controls.Add(card);
         }
 
-        Control CrearLabelTitulo(string texto)
+        Control CrearCampo(string label, string valor, int x, int y, bool esCheck = false)
         {
-            return new Label
-            {
-                Text = texto,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                ForeColor = Color.FromArgb(40, 40, 140),
-                AutoSize = true,
-                Margin = new Padding(10, 20, 10, 5)
-            };
-        }
+            Panel cont = new Panel();
+            cont.Size = new Size(210, 35); // Ancho suficiente para que no se corte el valor
+            cont.Location = new Point(x, y);
 
-        Control CrearLabelSub(string texto)
-        {
-            return new Label
-            {
-                Text = texto,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                AutoSize = true,
-                Margin = new Padding(10, 0, 10, 15)
-            };
-        }
+            // Indicador naranja
+            Panel bullet = new Panel();
+            bullet.Size = new Size(12, 12);
+            bullet.BackColor = Color.FromArgb(239, 192, 74);
+            bullet.Location = new Point(0, 10);
 
-        Control CrearCampo(string label, string valor)
-        {
-            Panel cont = new Panel
-            {
-                Width = 300,
-                Height = 30,
-                Margin = new Padding(10, 5, 10, 5)
-            };
+            // Etiqueta (COSTO, PRECIO, etc)
+            Label lbl = new Label();
+            lbl.Text = label.ToUpper();
+            lbl.Font = new Font("MADE TOMMY", 9, FontStyle.Bold);
+            lbl.ForeColor = Color.FromArgb(56, 56, 56);
+            lbl.AutoSize = true;
+            lbl.Location = new Point(20, 8);
 
-            Label lbl = new Label
-            {
-                Text = label,
-                Width = 120,
-                TextAlign = ContentAlignment.MiddleLeft
-            };
+            // Valor con fondo gris
+            Label val = new Label();
+            val.Text = valor;
+            val.AutoSize = false;
+            val.Size = new Size(85, 26);
+            val.Location = new Point(115, 4); // Separación entre label y valor
+            val.BackColor = Color.FromArgb(225, 227, 232); // Gris suave
+            val.TextAlign = ContentAlignment.MiddleCenter;
+            val.Font = new Font("MADE TOMMY", 9, FontStyle.Bold);
+            val.ForeColor = Color.FromArgb(40, 40, 140);
 
-            Label val = new Label
+            if (esCheck)
             {
-                Text = valor,
-                BackColor = Color.Gainsboro,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(130, 3),
-                Size = new Size(100, 24)
-            };
+                val.BackColor = Color.Transparent;
+                val.ForeColor = Color.FromArgb(0, 200, 100);
+                val.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+                val.Location = new Point(115, 0); 
+            }
 
+            cont.Controls.Add(bullet);
             cont.Controls.Add(lbl);
             cont.Controls.Add(val);
 
@@ -235,6 +259,10 @@
         string ObtenerNombreBase(string nombre)
         {
             var partes = nombre.Split(' ');
+
+            if (partes.Length <= 1)
+                return nombre;
+
             return string.Join(" ", partes.Take(partes.Length - 1));
         }
 
@@ -251,10 +279,9 @@
             }
             else
             {
-                Close();
+                this.Close();
             }
         }
-
         private void btn_Cerrar_Click_1(object sender, EventArgs e)
         {
             Form root = this;
@@ -278,6 +305,8 @@
                 if (index < flowLayoutPanel1.Controls.Count)
                 {
                     var ctrl = flowLayoutPanel1.Controls[index];
+
+                    ctrl.BackColor = Color.Gainsboro;
                     ClickOpcion(ctrl);
                 }
 
@@ -294,5 +323,14 @@
         }
 
         #endregion
+
+        string ObtenerTextoCorto(Nodo nodo)
+        {
+            if (!nodo.EsFinal)
+                return nodo.Nombre;
+
+            var partes = nodo.ProductoFinal.NombreCompleto.Split(' ');
+            return partes.Last(); // 80CC
+        }
     }
 }
