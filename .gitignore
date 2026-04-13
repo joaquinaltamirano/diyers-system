@@ -1,5 +1,11 @@
-bin/
-obj/
+# Visual Studio
 .vs/
+[Bb]in/
+[Oo]bj/
 *.user
 *.suo
+*.cache
+*.temp
+
+# Archivos de usuario específicos de VS
+.vs/Diyers System/v17/.suo
