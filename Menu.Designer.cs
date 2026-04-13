@@ -76,7 +76,7 @@
             foxButton1.OverColor = Color.FromArgb(242, 242, 242);
             foxButton1.Size = new Size(281, 40);
             foxButton1.TabIndex = 1;
-            foxButton1.Text = "COTIZAR";
+            foxButton1.Text = "CARGAR PEDIDO";
             // 
             // foxButton2
             // 
@@ -96,7 +96,7 @@
             foxButton2.OverColor = Color.FromArgb(242, 242, 242);
             foxButton2.Size = new Size(281, 40);
             foxButton2.TabIndex = 2;
-            foxButton2.Text = "PEDIDOS";
+            foxButton2.Text = "EDITAR PRECIOS";
             // 
             // foxButton3
             // 
@@ -116,7 +116,7 @@
             foxButton3.OverColor = Color.FromArgb(242, 242, 242);
             foxButton3.Size = new Size(281, 40);
             foxButton3.TabIndex = 3;
-            foxButton3.Text = "EXPORTAR";
+            foxButton3.Text = "COTIZADOR";
             // 
             // pictureBox1
             // 

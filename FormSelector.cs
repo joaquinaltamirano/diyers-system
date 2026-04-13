@@ -299,21 +299,33 @@ namespace Diyers_System
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            //SI ES DETALLE = ignorar números
+            if (nodoActual.EsFinal)
+            {
+                if (keyData == Keys.Escape)
+                {
+                    btn_Volver_Click(null, null);
+                    return true;
+                }
+
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            // NÚMEROS (1–9)
             if (keyData >= Keys.D1 && keyData <= Keys.D9)
             {
                 int index = keyData - Keys.D1;
 
                 if (index < flowLayoutPanel1.Controls.Count)
                 {
-                    var ctrl = flowLayoutPanel1.Controls[index];
-
-                    ctrl.BackColor = Color.Gainsboro;
-                    ClickOpcion(ctrl);
+                    var btn = (Button)flowLayoutPanel1.Controls[index];
+                    btn.PerformClick();
                 }
 
                 return true;
             }
 
+            // ESC
             if (keyData == Keys.Escape)
             {
                 btn_Volver_Click(null, null);

@@ -33,23 +33,18 @@
             txt_Dolar = new TextBox();
             lbl_Categoria = new Label();
             txt_Busqueda = new TextBox();
-            listView1 = new ListView();
             label1 = new Label();
             label2 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
             panel4 = new Panel();
-            panel5 = new Panel();
-            panel6 = new Panel();
             btn_Ferreteria = new ReaLTaiizor.Controls.RoyalEllipseButton();
             btn_Pintura = new ReaLTaiizor.Controls.RoyalEllipseButton();
             btn_Maderas = new ReaLTaiizor.Controls.RoyalEllipseButton();
             btn_Todas = new ReaLTaiizor.Controls.RoyalEllipseButton();
             btn_Instalaciones = new ReaLTaiizor.Controls.RoyalEllipseButton();
             btnConstruccion = new ReaLTaiizor.Controls.RoyalEllipseButton();
-            foxButton1 = new ReaLTaiizor.Controls.FoxButton();
-            button3 = new ReaLTaiizor.Controls.Button();
             btn_Cerrar = new ReaLTaiizor.Controls.Button();
             btn_Minimizar = new ReaLTaiizor.Controls.Button();
             btn_Volver = new ReaLTaiizor.Controls.Button();
@@ -71,6 +66,15 @@
             panel17 = new Panel();
             panel18 = new Panel();
             label8 = new Label();
+            btn_Exportar = new ReaLTaiizor.Controls.Button();
+            button2 = new ReaLTaiizor.Controls.Button();
+            button1 = new ReaLTaiizor.Controls.Button();
+            btn_Limpiar = new ReaLTaiizor.Controls.Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            aloneTextBox1 = new ReaLTaiizor.Controls.AloneTextBox();
+            aloneTextBox2 = new ReaLTaiizor.Controls.AloneTextBox();
+            aloneTextBox3 = new ReaLTaiizor.Controls.AloneTextBox();
+            btn_Editar = new ReaLTaiizor.Controls.Button();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
             panel9.SuspendLayout();
@@ -98,14 +102,14 @@
             // 
             // txt_Dolar
             // 
-            txt_Dolar.BackColor = Color.FromArgb(231, 228, 216);
+            txt_Dolar.BackColor = Color.FromArgb(239, 235, 222);
             txt_Dolar.BorderStyle = BorderStyle.None;
             txt_Dolar.Enabled = false;
-            txt_Dolar.Font = new Font("MADE TOMMY", 20.2499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txt_Dolar.Font = new Font("MADE TOMMY", 17.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txt_Dolar.ForeColor = Color.FromArgb(44, 30, 155);
-            txt_Dolar.Location = new Point(63, 102);
+            txt_Dolar.Location = new Point(64, 104);
             txt_Dolar.Name = "txt_Dolar";
-            txt_Dolar.Size = new Size(153, 34);
+            txt_Dolar.Size = new Size(136, 31);
             txt_Dolar.TabIndex = 1;
             txt_Dolar.Text = "$ 1433";
             // 
@@ -122,41 +126,23 @@
             // 
             // txt_Busqueda
             // 
-            txt_Busqueda.BackColor = Color.FromArgb(231, 228, 216);
+            txt_Busqueda.BackColor = Color.FromArgb(239, 235, 222);
             txt_Busqueda.BorderStyle = BorderStyle.None;
             txt_Busqueda.CharacterCasing = CharacterCasing.Upper;
             txt_Busqueda.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_Busqueda.Location = new Point(63, 329);
+            txt_Busqueda.Location = new Point(71, 333);
             txt_Busqueda.Name = "txt_Busqueda";
-            txt_Busqueda.Size = new Size(359, 26);
+            txt_Busqueda.Size = new Size(329, 26);
             txt_Busqueda.TabIndex = 11;
             txt_Busqueda.TextChanged += txt_Busqueda_TextChanged;
             txt_Busqueda.KeyDown += txt_Busqueda_KeyDown;
-            // 
-            // listView1
-            // 
-            listView1.BackColor = Color.FromArgb(247, 236, 234);
-            listView1.BorderStyle = BorderStyle.None;
-            listView1.Font = new Font("MADE TOMMY", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            listView1.ForeColor = Color.FromArgb(56, 56, 56);
-            listView1.FullRowSelect = true;
-            listView1.GridLines = true;
-            listView1.Location = new Point(73, 410);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(349, 287);
-            listView1.TabIndex = 13;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Tile;
-            listView1.DoubleClick += listView1_DoubleClick;
-            listView1.KeyDown += listView1_KeyDown;
-            listView1.MouseClick += listView1_MouseClick;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("MADE TOMMY", 11.9999981F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(44, 30, 155);
-            label1.Location = new Point(73, 378);
+            label1.Location = new Point(63, 378);
             label1.Name = "label1";
             label1.Size = new Size(81, 20);
             label1.TabIndex = 14;
@@ -167,7 +153,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("MADE TOMMY", 11.9999981F, FontStyle.Bold);
             label2.ForeColor = Color.FromArgb(44, 30, 155);
-            label2.Location = new Point(349, 378);
+            label2.Location = new Point(394, 378);
             label2.Name = "label2";
             label2.Size = new Size(62, 20);
             label2.TabIndex = 15;
@@ -175,7 +161,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(247, 236, 234);
+            panel1.BackColor = Color.FromArgb(247, 246, 234);
             panel1.Location = new Point(477, 64);
             panel1.Name = "panel1";
             panel1.Size = new Size(19, 21);
@@ -209,27 +195,11 @@
             panel4.TabIndex = 22;
             panel4.Visible = false;
             // 
-            // panel5
-            // 
-            panel5.BackColor = Color.FromArgb(239, 192, 74);
-            panel5.Location = new Point(34, 57);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(15, 73);
-            panel5.TabIndex = 23;
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.FromArgb(239, 192, 74);
-            panel6.Location = new Point(34, 178);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(15, 39);
-            panel6.TabIndex = 24;
-            // 
             // btn_Ferreteria
             // 
-            btn_Ferreteria.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Ferreteria.BackColor = Color.FromArgb(247, 246, 234);
             btn_Ferreteria.BorderColor = Color.FromArgb(180, 180, 180);
-            btn_Ferreteria.BorderThickness = 3;
+            btn_Ferreteria.BorderThickness = 2;
             btn_Ferreteria.DrawBorder = true;
             btn_Ferreteria.ForeColor = Color.FromArgb(31, 31, 31);
             btn_Ferreteria.HotTrackColor = Color.White;
@@ -246,9 +216,9 @@
             // 
             // btn_Pintura
             // 
-            btn_Pintura.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Pintura.BackColor = Color.FromArgb(247, 246, 234);
             btn_Pintura.BorderColor = Color.FromArgb(180, 180, 180);
-            btn_Pintura.BorderThickness = 3;
+            btn_Pintura.BorderThickness = 2;
             btn_Pintura.DrawBorder = true;
             btn_Pintura.ForeColor = Color.FromArgb(31, 31, 31);
             btn_Pintura.HotTrackColor = Color.White;
@@ -265,9 +235,9 @@
             // 
             // btn_Maderas
             // 
-            btn_Maderas.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Maderas.BackColor = Color.FromArgb(247, 246, 234);
             btn_Maderas.BorderColor = Color.FromArgb(180, 180, 180);
-            btn_Maderas.BorderThickness = 3;
+            btn_Maderas.BorderThickness = 2;
             btn_Maderas.DrawBorder = true;
             btn_Maderas.ForeColor = Color.FromArgb(31, 31, 31);
             btn_Maderas.HotTrackColor = Color.White;
@@ -284,13 +254,13 @@
             // 
             // btn_Todas
             // 
-            btn_Todas.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Todas.BackColor = Color.FromArgb(247, 246, 234);
             btn_Todas.BorderColor = Color.FromArgb(180, 180, 180);
-            btn_Todas.BorderThickness = 3;
+            btn_Todas.BorderThickness = 2;
             btn_Todas.DrawBorder = true;
             btn_Todas.ForeColor = Color.FromArgb(31, 31, 31);
             btn_Todas.HotTrackColor = Color.White;
-            btn_Todas.Image = null;
+            btn_Todas.Image = (Image)resources.GetObject("btn_Todas.Image");
             btn_Todas.LayoutFlags = ReaLTaiizor.Util.RoyalLayoutFlags.ImageOnly;
             btn_Todas.Location = new Point(8, 4);
             btn_Todas.Name = "btn_Todas";
@@ -299,14 +269,13 @@
             btn_Todas.Size = new Size(60, 60);
             btn_Todas.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             btn_Todas.TabIndex = 32;
-            btn_Todas.Text = "Todas";
             btn_Todas.Click += btn_Todas_Click;
             // 
             // btn_Instalaciones
             // 
-            btn_Instalaciones.BackColor = Color.FromArgb(247, 236, 234);
+            btn_Instalaciones.BackColor = Color.FromArgb(247, 246, 234);
             btn_Instalaciones.BorderColor = Color.FromArgb(180, 180, 180);
-            btn_Instalaciones.BorderThickness = 3;
+            btn_Instalaciones.BorderThickness = 2;
             btn_Instalaciones.DrawBorder = true;
             btn_Instalaciones.ForeColor = Color.FromArgb(31, 31, 31);
             btn_Instalaciones.HotTrackColor = Color.White;
@@ -323,9 +292,9 @@
             // 
             // btnConstruccion
             // 
-            btnConstruccion.BackColor = Color.FromArgb(247, 236, 234);
+            btnConstruccion.BackColor = Color.FromArgb(247, 246, 234);
             btnConstruccion.BorderColor = Color.FromArgb(180, 180, 180);
-            btnConstruccion.BorderThickness = 3;
+            btnConstruccion.BorderThickness = 2;
             btnConstruccion.DrawBorder = true;
             btnConstruccion.ForeColor = Color.FromArgb(31, 31, 31);
             btnConstruccion.HotTrackColor = Color.White;
@@ -340,57 +309,20 @@
             btnConstruccion.TabIndex = 34;
             btnConstruccion.Click += btnConstruccion_Click;
             // 
-            // foxButton1
-            // 
-            foxButton1.BackColor = Color.Transparent;
-            foxButton1.BaseColor = Color.FromArgb(239, 192, 74);
-            foxButton1.BorderColor = Color.FromArgb(193, 193, 193);
-            foxButton1.DisabledBaseColor = Color.FromArgb(249, 249, 249);
-            foxButton1.DisabledBorderColor = Color.FromArgb(209, 209, 209);
-            foxButton1.DisabledTextColor = Color.FromArgb(166, 178, 190);
-            foxButton1.DownColor = Color.FromArgb(232, 232, 232);
-            foxButton1.EnabledCalc = true;
-            foxButton1.Font = new Font("MADE TOMMY", 11.2499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            foxButton1.ForeColor = Color.White;
-            foxButton1.Location = new Point(379, 102);
-            foxButton1.Name = "foxButton1";
-            foxButton1.OverColor = Color.FromArgb(44, 30, 155);
-            foxButton1.Size = new Size(206, 34);
-            foxButton1.TabIndex = 35;
-            foxButton1.Text = "EXPORTAR DATOS";
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.FromArgb(239, 192, 74);
-            button3.BorderColor = Color.FromArgb(239, 192, 74);
-            button3.EnteredBorderColor = Color.FromArgb(44, 30, 155);
-            button3.EnteredColor = Color.FromArgb(44, 30, 155);
-            button3.Font = new Font("Microsoft Sans Serif", 12F);
-            button3.Image = (Image)resources.GetObject("button3.Image");
-            button3.ImageAlign = ContentAlignment.MiddleCenter;
-            button3.InactiveColor = Color.FromArgb(239, 192, 74);
-            button3.Location = new Point(227, 102);
-            button3.Name = "button3";
-            button3.PressedBorderColor = Color.FromArgb(239, 192, 74);
-            button3.PressedColor = Color.FromArgb(239, 192, 74);
-            button3.Size = new Size(39, 34);
-            button3.TabIndex = 36;
-            button3.TextAlignment = StringAlignment.Center;
-            // 
             // btn_Cerrar
             // 
-            btn_Cerrar.BackColor = Color.FromArgb(247, 236, 234);
-            btn_Cerrar.BorderColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.BackColor = Color.FromArgb(247, 246, 234);
+            btn_Cerrar.BorderColor = Color.FromArgb(247, 246, 234);
             btn_Cerrar.EnteredBorderColor = Color.FromArgb(239, 192, 74);
             btn_Cerrar.EnteredColor = Color.FromArgb(239, 192, 74);
             btn_Cerrar.Font = new Font("Microsoft Sans Serif", 12F);
             btn_Cerrar.Image = (Image)resources.GetObject("btn_Cerrar.Image");
             btn_Cerrar.ImageAlign = ContentAlignment.MiddleCenter;
-            btn_Cerrar.InactiveColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.InactiveColor = Color.FromArgb(247, 246, 234);
             btn_Cerrar.Location = new Point(535, -1);
             btn_Cerrar.Name = "btn_Cerrar";
-            btn_Cerrar.PressedBorderColor = Color.FromArgb(247, 236, 234);
-            btn_Cerrar.PressedColor = Color.FromArgb(247, 236, 234);
+            btn_Cerrar.PressedBorderColor = Color.FromArgb(247, 246, 234);
+            btn_Cerrar.PressedColor = Color.FromArgb(247, 246, 234);
             btn_Cerrar.Size = new Size(48, 45);
             btn_Cerrar.TabIndex = 37;
             btn_Cerrar.TextAlignment = StringAlignment.Center;
@@ -398,18 +330,18 @@
             // 
             // btn_Minimizar
             // 
-            btn_Minimizar.BackColor = Color.FromArgb(247, 236, 234);
-            btn_Minimizar.BorderColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.BackColor = Color.FromArgb(247, 246, 234);
+            btn_Minimizar.BorderColor = Color.FromArgb(247, 246, 234);
             btn_Minimizar.EnteredBorderColor = Color.FromArgb(239, 192, 74);
             btn_Minimizar.EnteredColor = Color.FromArgb(239, 192, 74);
             btn_Minimizar.Font = new Font("Microsoft Sans Serif", 12F);
             btn_Minimizar.Image = (Image)resources.GetObject("btn_Minimizar.Image");
             btn_Minimizar.ImageAlign = ContentAlignment.MiddleCenter;
-            btn_Minimizar.InactiveColor = Color.FromArgb(247, 236, 234);
-            btn_Minimizar.Location = new Point(492, -1);
+            btn_Minimizar.InactiveColor = Color.FromArgb(247, 246, 234);
+            btn_Minimizar.Location = new Point(491, -1);
             btn_Minimizar.Name = "btn_Minimizar";
-            btn_Minimizar.PressedBorderColor = Color.FromArgb(247, 236, 234);
-            btn_Minimizar.PressedColor = Color.FromArgb(247, 236, 234);
+            btn_Minimizar.PressedBorderColor = Color.FromArgb(247, 246, 234);
+            btn_Minimizar.PressedColor = Color.FromArgb(247, 246, 234);
             btn_Minimizar.Size = new Size(48, 45);
             btn_Minimizar.TabIndex = 38;
             btn_Minimizar.TextAlignment = StringAlignment.Center;
@@ -417,21 +349,22 @@
             // 
             // btn_Volver
             // 
-            btn_Volver.BackColor = Color.FromArgb(247, 236, 234);
-            btn_Volver.BorderColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.BackColor = Color.FromArgb(247, 246, 234);
+            btn_Volver.BorderColor = Color.FromArgb(247, 246, 234);
             btn_Volver.EnteredBorderColor = Color.FromArgb(239, 192, 74);
             btn_Volver.EnteredColor = Color.FromArgb(239, 192, 74);
             btn_Volver.Font = new Font("Microsoft Sans Serif", 12F);
             btn_Volver.Image = (Image)resources.GetObject("btn_Volver.Image");
             btn_Volver.ImageAlign = ContentAlignment.MiddleCenter;
-            btn_Volver.InactiveColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.InactiveColor = Color.FromArgb(247, 246, 234);
             btn_Volver.Location = new Point(0, -1);
             btn_Volver.Name = "btn_Volver";
-            btn_Volver.PressedBorderColor = Color.FromArgb(247, 236, 234);
-            btn_Volver.PressedColor = Color.FromArgb(247, 236, 234);
+            btn_Volver.PressedBorderColor = Color.FromArgb(247, 246, 234);
+            btn_Volver.PressedColor = Color.FromArgb(247, 246, 234);
             btn_Volver.Size = new Size(48, 45);
             btn_Volver.TabIndex = 39;
             btn_Volver.TextAlignment = StringAlignment.Center;
+            btn_Volver.Click += btn_Volver_Click;
             // 
             // label3
             // 
@@ -595,12 +528,166 @@
             label8.TabIndex = 45;
             label8.Text = "Todas";
             // 
+            // btn_Exportar
+            // 
+            btn_Exportar.BackColor = Color.FromArgb(247, 246, 234);
+            btn_Exportar.BorderColor = Color.FromArgb(247, 246, 234);
+            btn_Exportar.EnteredBorderColor = Color.FromArgb(44, 30, 155);
+            btn_Exportar.EnteredColor = Color.FromArgb(44, 30, 155);
+            btn_Exportar.Font = new Font("MADE TOMMY", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Exportar.Image = (Image)resources.GetObject("btn_Exportar.Image");
+            btn_Exportar.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_Exportar.InactiveColor = Color.FromArgb(239, 192, 74);
+            btn_Exportar.Location = new Point(349, 102);
+            btn_Exportar.Name = "btn_Exportar";
+            btn_Exportar.PressedBorderColor = Color.FromArgb(239, 192, 74);
+            btn_Exportar.PressedColor = Color.FromArgb(239, 192, 74);
+            btn_Exportar.Size = new Size(237, 34);
+            btn_Exportar.TabIndex = 49;
+            btn_Exportar.Text = "EXPORTAR DATOS";
+            btn_Exportar.TextAlignment = StringAlignment.Center;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(247, 246, 234);
+            button2.BorderColor = Color.FromArgb(247, 246, 234);
+            button2.EnteredBorderColor = Color.FromArgb(44, 30, 155);
+            button2.EnteredColor = Color.FromArgb(44, 30, 155);
+            button2.Font = new Font("Microsoft Sans Serif", 12F);
+            button2.Image = null;
+            button2.ImageAlign = ContentAlignment.MiddleCenter;
+            button2.InactiveColor = Color.FromArgb(239, 192, 74);
+            button2.Location = new Point(35, 64);
+            button2.Name = "button2";
+            button2.PressedBorderColor = Color.FromArgb(239, 192, 74);
+            button2.PressedColor = Color.FromArgb(239, 192, 74);
+            button2.Size = new Size(16, 72);
+            button2.TabIndex = 50;
+            button2.TextAlignment = StringAlignment.Center;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(247, 246, 234);
+            button1.BorderColor = Color.FromArgb(247, 246, 234);
+            button1.EnteredBorderColor = Color.FromArgb(44, 30, 155);
+            button1.EnteredColor = Color.FromArgb(44, 30, 155);
+            button1.Font = new Font("Microsoft Sans Serif", 12F);
+            button1.Image = null;
+            button1.ImageAlign = ContentAlignment.MiddleCenter;
+            button1.InactiveColor = Color.FromArgb(239, 192, 74);
+            button1.Location = new Point(35, 179);
+            button1.Name = "button1";
+            button1.PressedBorderColor = Color.FromArgb(239, 192, 74);
+            button1.PressedColor = Color.FromArgb(239, 192, 74);
+            button1.Size = new Size(16, 36);
+            button1.TabIndex = 51;
+            button1.TextAlignment = StringAlignment.Center;
+            // 
+            // btn_Limpiar
+            // 
+            btn_Limpiar.BackColor = Color.FromArgb(247, 246, 234);
+            btn_Limpiar.BorderColor = Color.FromArgb(247, 246, 234);
+            btn_Limpiar.EnteredBorderColor = Color.FromArgb(247, 246, 234);
+            btn_Limpiar.EnteredColor = Color.FromArgb(44, 30, 155);
+            btn_Limpiar.Font = new Font("Microsoft Sans Serif", 12F);
+            btn_Limpiar.Image = (Image)resources.GetObject("btn_Limpiar.Image");
+            btn_Limpiar.ImageAlign = ContentAlignment.MiddleCenter;
+            btn_Limpiar.InactiveColor = Color.FromArgb(239, 192, 74);
+            btn_Limpiar.Location = new Point(417, 329);
+            btn_Limpiar.Name = "btn_Limpiar";
+            btn_Limpiar.PressedBorderColor = Color.FromArgb(239, 192, 74);
+            btn_Limpiar.PressedColor = Color.FromArgb(239, 192, 74);
+            btn_Limpiar.Size = new Size(39, 34);
+            btn_Limpiar.TabIndex = 52;
+            btn_Limpiar.TextAlignment = StringAlignment.Center;
+            btn_Limpiar.Click += btn_Limpiar_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = Color.WhiteSmoke;
+            flowLayoutPanel1.Location = new Point(72, 423);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(369, 279);
+            flowLayoutPanel1.TabIndex = 53;
+            // 
+            // aloneTextBox1
+            // 
+            aloneTextBox1.BackColor = Color.WhiteSmoke;
+            aloneTextBox1.EnabledCalc = true;
+            aloneTextBox1.Font = new Font("Segoe UI", 9F);
+            aloneTextBox1.ForeColor = Color.Transparent;
+            aloneTextBox1.Location = new Point(63, 417);
+            aloneTextBox1.MaxLength = 32767;
+            aloneTextBox1.MultiLine = false;
+            aloneTextBox1.Name = "aloneTextBox1";
+            aloneTextBox1.ReadOnly = false;
+            aloneTextBox1.Size = new Size(393, 297);
+            aloneTextBox1.TabIndex = 54;
+            aloneTextBox1.TextAlign = HorizontalAlignment.Left;
+            aloneTextBox1.UseSystemPasswordChar = false;
+            // 
+            // aloneTextBox2
+            // 
+            aloneTextBox2.BackColor = Color.FromArgb(239, 235, 222);
+            aloneTextBox2.EnabledCalc = true;
+            aloneTextBox2.Font = new Font("Segoe UI", 9F);
+            aloneTextBox2.ForeColor = Color.Transparent;
+            aloneTextBox2.Location = new Point(63, 329);
+            aloneTextBox2.MaxLength = 32767;
+            aloneTextBox2.MultiLine = false;
+            aloneTextBox2.Name = "aloneTextBox2";
+            aloneTextBox2.ReadOnly = false;
+            aloneTextBox2.Size = new Size(348, 34);
+            aloneTextBox2.TabIndex = 55;
+            aloneTextBox2.TextAlign = HorizontalAlignment.Left;
+            aloneTextBox2.UseSystemPasswordChar = false;
+            // 
+            // aloneTextBox3
+            // 
+            aloneTextBox3.BackColor = Color.FromArgb(239, 235, 222);
+            aloneTextBox3.EnabledCalc = true;
+            aloneTextBox3.Font = new Font("Segoe UI", 9F);
+            aloneTextBox3.ForeColor = Color.Transparent;
+            aloneTextBox3.Location = new Point(54, 102);
+            aloneTextBox3.MaxLength = 32767;
+            aloneTextBox3.MultiLine = false;
+            aloneTextBox3.Name = "aloneTextBox3";
+            aloneTextBox3.ReadOnly = false;
+            aloneTextBox3.Size = new Size(152, 34);
+            aloneTextBox3.TabIndex = 56;
+            aloneTextBox3.TextAlign = HorizontalAlignment.Left;
+            aloneTextBox3.UseSystemPasswordChar = false;
+            // 
+            // btn_Editar
+            // 
+            btn_Editar.BackColor = Color.FromArgb(247, 246, 234);
+            btn_Editar.BorderColor = Color.FromArgb(247, 246, 234);
+            btn_Editar.EnteredBorderColor = Color.FromArgb(247, 246, 234);
+            btn_Editar.EnteredColor = Color.FromArgb(44, 30, 155);
+            btn_Editar.Font = new Font("Microsoft Sans Serif", 12F);
+            btn_Editar.Image = (Image)resources.GetObject("btn_Editar.Image");
+            btn_Editar.ImageAlign = ContentAlignment.MiddleCenter;
+            btn_Editar.InactiveColor = Color.FromArgb(239, 192, 74);
+            btn_Editar.Location = new Point(213, 102);
+            btn_Editar.Name = "btn_Editar";
+            btn_Editar.PressedBorderColor = Color.FromArgb(239, 192, 74);
+            btn_Editar.PressedColor = Color.FromArgb(239, 192, 74);
+            btn_Editar.Size = new Size(39, 34);
+            btn_Editar.TabIndex = 57;
+            btn_Editar.TextAlignment = StringAlignment.Center;
+            // 
             // form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(247, 236, 234);
+            BackColor = Color.FromArgb(247, 246, 234);
             ClientSize = new Size(583, 749);
+            Controls.Add(btn_Editar);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(btn_Limpiar);
+            Controls.Add(button1);
+            Controls.Add(button2);
+            Controls.Add(btn_Exportar);
             Controls.Add(panel17);
             Controls.Add(panel15);
             Controls.Add(panel11);
@@ -610,21 +697,19 @@
             Controls.Add(btn_Volver);
             Controls.Add(btn_Minimizar);
             Controls.Add(btn_Cerrar);
-            Controls.Add(button3);
-            Controls.Add(foxButton1);
-            Controls.Add(panel6);
-            Controls.Add(panel5);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(listView1);
             Controls.Add(txt_Busqueda);
             Controls.Add(lbl_Categoria);
             Controls.Add(txt_Dolar);
             Controls.Add(lbl_Dolar);
+            Controls.Add(aloneTextBox1);
+            Controls.Add(aloneTextBox2);
+            Controls.Add(aloneTextBox3);
             FormBorderStyle = FormBorderStyle.None;
             Name = "form1";
             Text = "Form1";
@@ -661,7 +746,6 @@
         private Button btn_Maderera;
         private Button btn_Construccion;
         private TextBox txt_Busqueda;
-        private ListView listView1;
         private Label label1;
         private Label label2;
         private Panel panel1;
@@ -676,8 +760,7 @@
         private ReaLTaiizor.Controls.RoyalEllipseButton btn_Todas;
         private ReaLTaiizor.Controls.RoyalEllipseButton btn_Instalaciones;
         private ReaLTaiizor.Controls.RoyalEllipseButton btnConstruccion;
-        private ReaLTaiizor.Controls.FoxButton foxButton1;
-        private ReaLTaiizor.Controls.Button button3;
+        private ReaLTaiizor.Controls.Button btn_Editar;
         private ReaLTaiizor.Controls.Button btn_Cerrar;
         private ReaLTaiizor.Controls.Button btn_Minimizar;
         private ReaLTaiizor.Controls.Button btn_Volver;
@@ -699,5 +782,13 @@
         private Panel panel18;
         private Label label7;
         private Label label8;
+        private ReaLTaiizor.Controls.Button btn_Exportar;
+        private ReaLTaiizor.Controls.Button button2;
+        private ReaLTaiizor.Controls.Button button1;
+        private ReaLTaiizor.Controls.Button btn_Limpiar;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private ReaLTaiizor.Controls.AloneTextBox aloneTextBox1;
+        private ReaLTaiizor.Controls.AloneTextBox aloneTextBox2;
+        private ReaLTaiizor.Controls.AloneTextBox aloneTextBox3;
     }
 }
