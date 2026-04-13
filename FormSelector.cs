@@ -285,12 +285,17 @@ namespace Diyers_System
 
         private void btn_Cerrar_Click(object sender, EventArgs e)
         {
-            Form root = this;
+            Form actual = this;
 
-            while (root.Owner != null)
-                root = root.Owner;
+            while (actual.Owner is FormSelector)
+            {
+                Form anterior = actual.Owner;
+                actual.Close();
+                actual = anterior;
+            }
 
-            root.Close();
+            // cerrar el último popup (el primero de la cadena)
+            actual.Close();
         }
 
         #endregion

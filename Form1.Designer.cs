@@ -675,6 +675,7 @@
             btn_Editar.Size = new Size(39, 34);
             btn_Editar.TabIndex = 57;
             btn_Editar.TextAlignment = StringAlignment.Center;
+            btn_Editar.Click += btn_Editar_Click;
             // 
             // form1
             // 

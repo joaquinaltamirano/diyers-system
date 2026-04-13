@@ -594,12 +594,19 @@ namespace Diyers_System
 
         private void btn_Minimizar_Click(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void btn_Volver_Click(object sender, EventArgs e)
         {
+            Form menuPrincipal = Application.OpenForms["menu"];
 
+            if (menuPrincipal != null)
+            {
+                menuPrincipal.Show(); 
+            }
+
+            this.Close();
         }
 
         private void txt_Busqueda_KeyDown(object sender, KeyEventArgs e)
@@ -620,6 +627,11 @@ namespace Diyers_System
 
             FiltrarTodo();
             ResetUI();
+        }
+
+        private void btn_Editar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Acceso denegado");
         }
     }
 }
