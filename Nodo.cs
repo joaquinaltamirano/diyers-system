@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Diyers_System
-{    public class Nodo
+{
+    public class Nodo
     {
         public string Nombre { get; set; }
+        public string Atributo { get; set; }
         public List<Nodo> Hijos { get; set; } = new List<Nodo>();
         public bool EsFinal { get; set; }
 
-        // Opcional (para el último nivel)
         public Producto ProductoFinal { get; set; }
+        public List<string> Path { get; set; } = new List<string>();
     }
 }

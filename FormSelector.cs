@@ -49,11 +49,11 @@ namespace Diyers_System
             flowLayoutPanel1.Controls.Clear();
 
             // TITULO (siempre raíz)
-            lbl_Titulo.Text = nodoRaiz.Nombre;
+            lbl_Titulo.Text = string.Join(" > ", nodoActual.Path);
             lbl_Titulo.Visible = !nodoActual.EsFinal;
 
             // ATRIBUTO
-            lbl_Atributo.Text = ObtenerAtributo();
+            lbl_Atributo.Text = nodoActual.Atributo ?? "";
 
             int i = 1;
 
@@ -70,15 +70,7 @@ namespace Diyers_System
             if (nodoActual.EsFinal)
                 return "DETALLE";
 
-            int nivel = historial.Count;
-
-            switch (nivel)
-            {
-                case 0: return "COLOR";
-                case 1: return "MARCA";
-                case 2: return "MEDIDA";
-                default: return "OPCION";
-            }
+            return nodoActual.Atributo ?? "OPCIÓN";
         }
 
         #endregion
@@ -323,8 +315,8 @@ namespace Diyers_System
 
                 if (index < flowLayoutPanel1.Controls.Count)
                 {
-                    var btn = (Button)flowLayoutPanel1.Controls[index];
-                    btn.PerformClick();
+                    var ctrl = flowLayoutPanel1.Controls[index];
+                    ClickOpcion(ctrl);
                 }
 
                 return true;
@@ -348,7 +340,7 @@ namespace Diyers_System
                 return nodo.Nombre;
 
             var partes = nodo.ProductoFinal.NombreCompleto.Split(' ');
-            return partes.Last(); // 80CC
+            return partes.Last(); 
         }
 
         private void FormSelector_Load(object sender, EventArgs e)

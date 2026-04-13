@@ -605,9 +605,9 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BackColor = Color.WhiteSmoke;
-            flowLayoutPanel1.Location = new Point(72, 423);
+            flowLayoutPanel1.Location = new Point(71, 425);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(369, 279);
+            flowLayoutPanel1.Size = new Size(382, 279);
             flowLayoutPanel1.TabIndex = 53;
             // 
             // aloneTextBox1

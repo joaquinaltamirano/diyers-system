@@ -56,6 +56,8 @@ namespace Diyers_System
 
         void CargarFlow(List<ProductoFamilia> lista)
         {
+            flowLayoutPanel1.SuspendLayout();
+
             flowLayoutPanel1.Controls.Clear();
             itemsActuales = lista;
 
@@ -63,13 +65,21 @@ namespace Diyers_System
                 flowLayoutPanel1.Controls.Add(CrearItem(lista[i], i));
 
             selectedIndex = -1;
+
+            flowLayoutPanel1.ResumeLayout();
+
+            AjustarAlturaFlow(); // opcional (mejora UX)
         }
 
         System.Windows.Forms.Panel CrearItem(ProductoFamilia f, int index)
         {
+            int scrollWidth = flowLayoutPanel1.VerticalScroll.Visible
+                ? SystemInformation.VerticalScrollBarWidth
+                : 0;
+
             System.Windows.Forms.Panel item = new()
             {
-                Width = flowLayoutPanel1.ClientSize.Width - 5,
+                Width = flowLayoutPanel1.ClientSize.Width - scrollWidth - 2,
                 Height = 32,
                 Margin = new Padding(0, 1, 0, 1),
                 Tag = f,
@@ -79,13 +89,14 @@ namespace Diyers_System
             Label lbl = new()
             {
                 Text = f.Nombre,
-                Width = item.Width - 45,
                 Height = 32,
                 TextAlign = ContentAlignment.MiddleLeft,
-                ForeColor = Color.FromArgb(60, 60, 60)
+                ForeColor = Color.FromArgb(60, 60, 60),
+                Dock = DockStyle.Left,
+                Width = item.Width - 40 // deja espacio al botón
             };
 
-            var btn = CrearBotonDetalle(f);
+            var btn = CrearBotonDetalle(f, item);
 
             item.Click += (s, e) => SeleccionarItem(index);
             lbl.Click += (s, e) => SeleccionarItem(index);
@@ -96,12 +107,14 @@ namespace Diyers_System
             return item;
         }
 
-        ReaLTaiizor.Controls.Button CrearBotonDetalle(ProductoFamilia f)
+        ReaLTaiizor.Controls.Button CrearBotonDetalle(ProductoFamilia f, System.Windows.Forms.Panel item)
         {
             var btn = new ReaLTaiizor.Controls.Button();
 
             btn.Size = new Size(26, 26);
-            btn.Location = new Point(flowLayoutPanel1.ClientSize.Width - 35, 3);
+
+            btn.Location = new Point(item.Width - btn.Width - 16, 3);
+            btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             btn.InactiveColor = Color.FromArgb(239, 192, 74);
             btn.EnteredColor = Color.FromArgb(44, 30, 155);
@@ -163,6 +176,23 @@ namespace Diyers_System
 
         #endregion
 
+        #region AJUSTE ALTURA (ANTI-SCROLL PRO)
+
+        void AjustarAlturaFlow()
+        {
+            int totalHeight = 0;
+
+            foreach (Control c in flowLayoutPanel1.Controls)
+                totalHeight += c.Height + c.Margin.Vertical;
+
+            int maxAltura = 300;
+
+            flowLayoutPanel1.Height = Math.Min(totalHeight + 5, maxAltura);
+            flowLayoutPanel1.AutoScroll = totalHeight > maxAltura;
+        }
+
+        #endregion
+
         #region FILTRO
 
         void FiltrarTodo()
@@ -196,30 +226,6 @@ namespace Diyers_System
             txt_Busqueda.SelectionStart = txt_Busqueda.Text.Length;
             txt_Busqueda.SelectionLength = 0;
         }
-
-        void GenerarFamilias()
-        {
-            familias = productosRaw
-                .Select(p => new ProductoFamilia
-                {
-                    Nombre = p.NombreCompleto.Split(' ')[0],
-                    Categoria = p.Categoria
-                })
-                .GroupBy(f => f.Nombre + f.Categoria)
-                .Select(g => g.First())
-                .ToList();
-        }
-
-        void GenerarDataMock()
-        {
-            productosRaw.Add(new Producto { NombreCompleto = "AEROSOL KUWAIT ROJO 80CC", Categoria = "Pintura" });
-            productosRaw.Add(new Producto { NombreCompleto = "TORNILLO PHILIPS 10MM", Categoria = "Ferreteria" });
-            productosRaw.Add(new Producto { NombreCompleto = "CAÑO ESTRUCTURAL 20X20", Categoria = "Construccion" });
-            productosRaw.Add(new Producto { NombreCompleto = "CABLE 2.5MM ROJO", Categoria = "Instalaciones" });
-            productosRaw.Add(new Producto { NombreCompleto = "TABLA PINO 2X4", Categoria = "Maderera" });
-            // Agregá más acá para probar el scroll...
-        }
-
 
         #region TECLADO
 
@@ -266,282 +272,256 @@ namespace Diyers_System
 
         #endregion
 
+        #region MOCK DATA + ARBOLES
+
+        void GenerarDataMock()
+        {
+            productosRaw.AddRange(new List<Producto>
+    {
+        new Producto { NombreCompleto = "AEROSOL KUWAIT ROJO 80CC", Categoria = "Pintura" },
+        new Producto { NombreCompleto = "LATEX SINTEPLAST BLANCO 20L", Categoria = "Pintura" },
+        new Producto { NombreCompleto = "TORNILLO PHILIPS 10MM", Categoria = "Ferreteria" },
+        new Producto { NombreCompleto = "TUERCA HEXAGONAL 10MM", Categoria = "Ferreteria" },
+        new Producto { NombreCompleto = "CAÑO ESTRUCTURAL 20X20", Categoria = "Construccion" },
+        new Producto { NombreCompleto = "PERFIL U 100MM", Categoria = "Construccion" },
+        new Producto { NombreCompleto = "CABLE 2.5MM ROJO", Categoria = "Instalaciones" },
+        new Producto { NombreCompleto = "TERMICA 20A", Categoria = "Instalaciones" },
+        new Producto { NombreCompleto = "TABLA PINO 2M", Categoria = "Maderera" },
+        new Producto { NombreCompleto = "FENOLICO 18MM", Categoria = "Maderera" }
+    });
+        }
+
+        Nodo GenerarArbolMock(string familia)
+        {
+            return familia switch
+            {
+                "AEROSOL" => NodoBase("AEROSOL", "MARCA",
+                    n => Marca("KUWAIT", n,
+                        n2 => Colour("ROJO", n2),
+                        n2 => Colour("AZUL", n2)
+                    ),
+                    n => Marca("SINTEPLAST", n,
+                        n2 => Colour("NEGRO", n2),
+                        n2 => Colour("BLANCO", n2)
+                    )
+                ),
+
+                "LATEX" => NodoBase("LATEX", "MARCA",
+                    n => Marca("SINTEPLAST", n,
+                        n2 => Presentacion("10L", n2),
+                        n2 => Presentacion("20L", n2)
+                    ),
+                    n => Marca("ALBA", n,
+                        n2 => Presentacion("4L", n2),
+                        n2 => Presentacion("20L", n2)
+                    )
+                ),
+
+                "TORNILLO" => NodoBase("TORNILLO", "TIPO",
+                    n => TipoConMedidas("PHILIPS", n, "6MM", "8MM", "10MM"),
+                    n => TipoConMedidas("ALLEN", n, "6MM", "8MM", "10MM"),
+                    n => TipoConMedidas("PLANO", n, "6MM", "8MM", "10MM")
+                ),
+
+                "TUERCA" => NodoBase("TUERCA", "MEDIDA",
+                    n => Medida("8MM", n),
+                    n => Medida("10MM", n),
+                    n => Medida("12MM", n)
+                ),
+
+                "CAÑO" => NodoBase("CAÑO", "TIPO",
+                    n => TipoConMedidas("ESTRUCTURAL", n, "20x20", "40x40"),
+                    n => TipoConMedidas("REDONDO", n, "1/2", "3/4")
+                ),
+
+                "PERFIL" => NodoBase("PERFIL", "TIPO",
+                    n => TipoConMedidas("U", n, "80MM", "100MM", "120MM"),
+                    n => TipoConMedidas("C", n, "80MM", "100MM")
+                ),
+
+                "CABLE" => NodoBase("CABLE", "SECCION",
+                    n => CableSeccion("1.5MM", n),
+                    n => CableSeccion("2.5MM", n),
+                    n => CableSeccion("4MM", n)
+                ),
+
+                "TERMICA" => NodoBase("TERMICA", "AMPERAJE",
+                    n => Amperaje("10A", n),
+                    n => Amperaje("20A", n),
+                    n => Amperaje("32A", n)
+                ),
+
+                "TABLA" => NodoBase("TABLA", "MADERA",
+                    n => Madera("PINO", n),
+                    n => Madera("EUCALIPTO", n)
+                ),
+
+                "FENOLICO" => NodoBase("FENOLICO", "ESPESOR",
+                    n => Espesor("9MM", n),
+                    n => Espesor("18MM", n)
+                ),
+
+                _ => NodoBase("VACIO", "", null)
+            };
+        }
+
+        #endregion
+
+        #region HELPERS NODOS
+
+        Nodo NodoBase(string nombre, string atributo, params Func<Nodo, Nodo>[] hijosBuilders)
+        {
+            var nodo = new Nodo
+            {
+                Nombre = nombre,
+                Atributo = atributo,
+                Path = new List<string> { nombre }
+            };
+
+            nodo.Hijos = hijosBuilders
+                ?.Select(builder => builder(nodo))
+                .ToList() ?? new List<Nodo>();
+
+            return nodo;
+        }
+
+        Nodo CrearNodo(string nombre, string atributo, Nodo padre)
+        {
+            return new Nodo
+            {
+                Nombre = nombre,
+                Atributo = atributo,
+                Path = new List<string>(padre.Path) { nombre }
+            };
+        }
+
+        Nodo TipoConMedidas(string nombre, Nodo padre, params string[] medidas)
+        {
+            var nodo = CrearNodo(nombre, "MEDIDA", padre);
+
+            nodo.Hijos = medidas
+                .Select(m => Medida(m, nodo))
+                .ToList();
+
+            return nodo;
+        }
+
+        Nodo Medida(string nombre, Nodo padre)
+        {
+            return CrearProductoFinal(nombre, padre);
+        }
+
+        Nodo Presentacion(string nombre, Nodo padre)
+        {
+            return CrearProductoFinal(nombre, padre);
+        }
+
+        Nodo Amperaje(string nombre, Nodo padre)
+        {
+            return CrearProductoFinal(nombre, padre);
+        }
+
+        Nodo Espesor(string nombre, Nodo padre)
+        {
+            return CrearProductoFinal(nombre, padre);
+        }
+
+        Nodo CableSeccion(string nombre, Nodo padre)
+        {
+            var nodo = CrearNodo(nombre, "COLOR", padre);
+
+            nodo.Hijos = new List<Nodo>
+    {
+        CrearProductoFinal($"{nombre} ROJO", nodo),
+        CrearProductoFinal($"{nombre} NEGRO", nodo)
+    };
+
+            return nodo;
+        }
+
+        Nodo Madera(string nombre, Nodo padre)
+        {
+            var nodo = CrearNodo(nombre, "LARGO", padre);
+
+            nodo.Hijos = new List<Nodo>
+    {
+        CrearProductoFinal($"{nombre} 2M", nodo),
+        CrearProductoFinal($"{nombre} 3M", nodo)
+    };
+
+            return nodo;
+        }
+
+        Nodo Marca(string nombre, Nodo padre, params Func<Nodo, Nodo>[] hijos)
+        {
+            var nodo = CrearNodo(nombre, "COLOR", padre);
+
+            nodo.Hijos = hijos.Select(h => h(nodo)).ToList();
+
+            return nodo;
+        }
+
+        Nodo Tipo(string nombre, Nodo padre)
+        {
+            var nodo = CrearNodo(nombre, "MEDIDA", padre);
+
+            nodo.Hijos = new List<Nodo>
+    {
+        CrearProductoFinal(nombre, nodo)
+    };
+
+            return nodo;
+        }
+
+        Nodo Colour(string nombre, Nodo padre)
+        {
+            var nodo = CrearNodo(nombre, "PRESENTACION", padre);
+
+            nodo.Hijos = new List<Nodo>
+    {
+        CrearProductoFinal("40CC", nodo),
+        CrearProductoFinal("80CC", nodo)
+    };
+
+            return nodo;
+        }
+
+        Nodo CrearProductoFinal(string nombre, Nodo padre)
+        {
+            var path = new List<string>(padre.Path) { nombre };
+
+            return new Nodo
+            {
+                Nombre = nombre,
+                EsFinal = true,
+                Path = path,
+                ProductoFinal = new Producto
+                {
+                    NombreCompleto = string.Join(" ", path)
+                }
+            };
+        }
+
+        void GenerarFamilias()
+        {
+            familias = productosRaw
+                .Select(p => new ProductoFamilia
+                {
+                    Nombre = p.NombreCompleto.Split(' ')[0],
+                    Categoria = p.Categoria
+                })
+                .GroupBy(f => f.Nombre + f.Categoria)
+                .Select(g => g.First())
+                .ToList();
+        }
+
+        #endregion
+
         private void btn_Cerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        Nodo GenerarArbolMock(string familia)
-
-        {
-
-            if (familia == "AEROSOL")
-
-            {
-
-                return new Nodo
-
-                {
-
-                    Nombre = "AEROSOL",
-
-                    Hijos = new List<Nodo>
-
-            {
-
-                CrearColor("ROJO"),
-
-                CrearColor("AZUL"),
-
-                CrearColor("VERDE")
-
-            }
-
-                };
-
-            }
-
-
-
-            if (familia == "TORNILLO")
-
-            {
-
-                return new Nodo
-
-                {
-
-                    Nombre = "TORNILLO",
-
-                    Hijos = new List<Nodo>
-
-            {
-
-                CrearTipoTornillo("PHILIPS"),
-
-                CrearTipoTornillo("PLANO"),
-
-                CrearTipoTornillo("ALLEN")
-
-            }
-
-                };
-
-            }
-
-
-
-            if (familia == "CAÑO")
-
-            {
-
-                return new Nodo
-
-                {
-
-                    Nombre = "CAÑO",
-
-                    Hijos = new List<Nodo>
-
-            {
-
-                CrearMedidaCaño("20x20"),
-
-                CrearMedidaCaño("40x40"),
-
-                CrearMedidaCaño("60x40")
-
-            }
-
-                };
-
-            }
-
-
-
-            if (familia == "TABLA")
-
-            {
-
-                return new Nodo
-
-                {
-
-                    Nombre = "TABLA",
-
-                    Hijos = new List<Nodo>
-
-            {
-
-                CrearMadera("PINO"),
-
-                CrearMadera("EUCALIPTO"),
-
-                CrearMadera("CEDRO")
-
-            }
-
-                };
-
-            }
-
-
-
-            return new Nodo { Nombre = "VACIO" };
-
-        }
-
-        Nodo CrearColor(string color)
-
-        {
-
-            return new Nodo
-
-            {
-
-                Nombre = color,
-
-                Hijos = new List<Nodo>
-
-        {
-
-            CrearMarca(color, "KUWAIT"),
-
-            CrearMarca(color, "SINTEPLAST")
-
-        }
-
-            };
-
-        }
-
-
-
-        Nodo CrearMarca(string color, string marca)
-
-        {
-
-            return new Nodo
-
-            {
-
-                Nombre = marca,
-
-                Hijos = new List<Nodo>
-
-        {
-
-            CrearProductoFinal($"AEROSOL {marca} {color} 40CC"),
-
-            CrearProductoFinal($"AEROSOL {marca} {color} 80CC")
-
-        }
-
-            };
-
-        }
-
-
-
-        Nodo CrearTipoTornillo(string tipo)
-
-        {
-
-            return new Nodo
-
-            {
-
-                Nombre = tipo,
-
-                Hijos = new List<Nodo>
-
-        {
-
-            CrearProductoFinal($"TORNILLO {tipo} 8MM"),
-
-            CrearProductoFinal($"TORNILLO {tipo} 10MM")
-
-        }
-
-            };
-
-        }
-
-
-
-        Nodo CrearMedidaCaño(string medida)
-
-        {
-
-            return new Nodo
-
-            {
-
-                Nombre = medida,
-
-                Hijos = new List<Nodo>
-
-        {
-
-            CrearProductoFinal($"CAÑO ESTRUCTURAL {medida}"),
-
-        }
-
-            };
-
-        }
-
-
-
-        Nodo CrearMadera(string tipo)
-
-        {
-
-            return new Nodo
-
-            {
-
-                Nombre = tipo,
-
-                Hijos = new List<Nodo>
-
-        {
-
-            CrearProductoFinal($"TABLA {tipo} 2M"),
-
-            CrearProductoFinal($"TABLA {tipo} 3M")
-
-        }
-
-            };
-
-        }
-
-
-
-        Nodo CrearProductoFinal(string nombre)
-
-        {
-
-            return new Nodo
-
-            {
-
-                Nombre = nombre,
-
-                EsFinal = true,
-
-                ProductoFinal = new Producto
-
-                {
-
-                    NombreCompleto = nombre
-
-                }
-
-            };
-
-        }
 
         private void btn_Ferreteria_Click(object sender, EventArgs e)
         {
