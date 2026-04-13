@@ -62,6 +62,7 @@
             btn_Cerrar.Size = new Size(48, 45);
             btn_Cerrar.TabIndex = 38;
             btn_Cerrar.TextAlignment = StringAlignment.Center;
+            btn_Cerrar.Click += btn_Cerrar_Click;
             // 
             // btn_Volver
             // 
@@ -80,6 +81,7 @@
             btn_Volver.Size = new Size(48, 45);
             btn_Volver.TabIndex = 40;
             btn_Volver.TextAlignment = StringAlignment.Center;
+            btn_Volver.Click += btn_Volver_Click;
             // 
             // panel6
             // 
@@ -126,6 +128,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormSelector";
             Text = "FormSelector";
+            Load += FormSelector_Load;
             ResumeLayout(false);
             PerformLayout();
         }

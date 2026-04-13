@@ -160,7 +160,7 @@ namespace Diyers_System
         void MostrarDetalle(Nodo nodo)
         {
             flowLayoutPanel1.Controls.Clear();
-            flowLayoutPanel1.AutoScroll = true; 
+            flowLayoutPanel1.AutoScroll = true;
 
             lbl_Titulo.Visible = false;
             lbl_Atributo.Text = "DETALLE";
@@ -241,7 +241,7 @@ namespace Diyers_System
                 val.BackColor = Color.Transparent;
                 val.ForeColor = Color.FromArgb(0, 200, 100);
                 val.Font = new Font("Segoe UI", 14, FontStyle.Bold);
-                val.Location = new Point(115, 0); 
+                val.Location = new Point(115, 0);
             }
 
             cont.Controls.Add(bullet);
@@ -270,7 +270,7 @@ namespace Diyers_System
 
         #region NAVEGACION
 
-        private void btn_Volver_Click_1(object sender, EventArgs e)
+        private void btn_Volver_Click(object sender, EventArgs e)
         {
             if (historial.Count > 0)
             {
@@ -282,7 +282,8 @@ namespace Diyers_System
                 this.Close();
             }
         }
-        private void btn_Cerrar_Click_1(object sender, EventArgs e)
+
+        private void btn_Cerrar_Click(object sender, EventArgs e)
         {
             Form root = this;
 
@@ -315,7 +316,7 @@ namespace Diyers_System
 
             if (keyData == Keys.Escape)
             {
-                btn_Volver_Click_1(null, null);
+                btn_Volver_Click(null, null);
                 return true;
             }
 
@@ -331,6 +332,11 @@ namespace Diyers_System
 
             var partes = nodo.ProductoFinal.NombreCompleto.Split(' ');
             return partes.Last(); // 80CC
+        }
+
+        private void FormSelector_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
